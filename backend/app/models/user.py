@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean
 from sqlalchemy.orm import relationship
 from app.database import Base
-from datetime import datetime
+from datetime import UTC, datetime
 import uuid
 
 class User(Base):
@@ -14,9 +14,11 @@ class User(Base):
     hashed_password = Column(String)
     hourly_rate = Column(Float, default=50.0)
     company_name = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    is_admin = Column(Boolean, default=False, nullable=False)
+    is_verified = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC))
 
-    clients = relationship("Client", back_populates="freelancer")
-    projects = relationship("Project", back_populates="freelancer")
-    timelogs = relationship("TimeLog", back_populates="freelancer")
-    invoices = relationship("Invoice", back_populates="freelancer")
+    clients = relationship("Client", back_populates="freelancer", cascade="all, delete-orphan")
+    projects = relationship("Project", back_populates="freelancer", cascade="all, delete-orphan")
+    timelogs = relationship("TimeLog", back_populates="freelancer", cascade="all, delete-orphan")
+    invoices = relationship("Invoice", back_populates="freelancer", cascade="all, delete-orphan")

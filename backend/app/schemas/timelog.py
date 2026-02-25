@@ -1,22 +1,28 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 from datetime import datetime
 
-class TimeLogBase(BaseModel):
+class TimeLogCreate(BaseModel):
     project_id: int
-    start_time: datetime
-    end_time: datetime
+    start_time: Optional[datetime] = None   # defaults to now if omitted
+    end_time: Optional[datetime] = None     # omit to start a live timer
     description: Optional[str] = None
 
-class TimeLogCreate(TimeLogBase):
-    pass
+class TimeLogUpdate(BaseModel):
+    project_id: Optional[int] = None
+    start_time: Optional[datetime] = None
+    end_time: Optional[datetime] = None
+    description: Optional[str] = None
 
-class TimeLogResponse(TimeLogBase):
+class TimeLogResponse(BaseModel):
     id: int
     log_id: str
-    hours: float
+    project_id: int
+    start_time: datetime
+    end_time: Optional[datetime] = None
+    hours: Optional[float] = None
+    description: Optional[str] = None
     is_invoiced: int
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

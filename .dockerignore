@@ -1,0 +1,15 @@
+**/__pycache__
+**/*.py[cod]
+**/.pytest_cache
+**/.coverage
+**/htmlcov
+backend/.env
+backend/tests/test_api.db
+backend/venv
+backend/.venv
+frontend/node_modules
+frontend/src
+frontend/public
+.git
+.gitignore
+*.md

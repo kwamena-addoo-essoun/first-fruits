@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float, Boolean
 from sqlalchemy.orm import relationship
 from app.database import Base
-from datetime import datetime
+from datetime import UTC, datetime
 import uuid
 
 class Project(Base):
@@ -19,7 +19,7 @@ class Project(Base):
     total_hours = Column(Float, default=0.0)
     total_earned = Column(Float, default=0.0)
     
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC))
 
     freelancer = relationship("User", back_populates="projects")
     client = relationship("Client", back_populates="projects")
