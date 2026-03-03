@@ -25,9 +25,9 @@
   animation: toastSlideIn 0.2s ease;
 }
 
-.toast-error   { background: #e74c3c; }
-.toast-success { background: #27ae60; }
-.toast-info    { background: #3498db; }
+.toast-error   { background: #c0392b; }
+.toast-success { background: #1e8449; }
+.toast-info    { background: #1a6fa8; }
 
 .toast-close {
   background: none;

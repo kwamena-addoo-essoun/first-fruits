@@ -1,0 +1,227 @@
+.billing-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.billing-header {
+  margin-bottom: 2rem;
+}
+
+.billing-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary, #f1f5f9);
+  margin-bottom: 0.4rem;
+}
+
+.billing-sub {
+  color: var(--text-muted, #94a3b8);
+  font-size: 1rem;
+}
+
+/* ── Current plan card ── */
+.billing-current-plan {
+  margin-bottom: 2rem;
+  padding: 1.75rem 2rem;
+}
+
+.billing-plan-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.billing-plan-row h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary, #f1f5f9);
+  margin-bottom: 0.3rem;
+}
+
+.billing-plan-desc {
+  color: var(--text-muted, #94a3b8);
+  font-size: 0.95rem;
+}
+
+/* ── Badges ── */
+.plan-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.plan-badge--free {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.plan-badge--pro {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(249, 115, 22, 0.2));
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+/* ── Upgrade button ── */
+.btn-upgrade {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+}
+
+.btn-upgrade:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-upgrade:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-upgrade--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-primary, #f1f5f9);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(148, 163, 184, 0.22);
+}
+
+/* ── Notice box ── */
+.billing-notice {
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  font-size: 0.9rem;
+  color: #93c5fd;
+  line-height: 1.6;
+}
+
+.billing-notice code {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.85em;
+}
+
+/* ── Plan comparison grid ── */
+.billing-plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .billing-plans-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.billing-plan-card {
+  background: var(--card-bg, rgba(30, 41, 59, 0.8));
+  border: 1px solid var(--border-color, rgba(148, 163, 184, 0.12));
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.billing-plan-card--pro {
+  border-color: rgba(251, 191, 36, 0.3);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(45, 30, 10, 0.5));
+}
+
+.billing-plan-card--current {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5);
+}
+
+.billing-plan-card-header {
+  margin-bottom: 1.25rem;
+}
+
+.billing-plan-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary, #f1f5f9);
+  margin-bottom: 0.4rem;
+}
+
+.billing-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.billing-price span {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-muted, #94a3b8);
+}
+
+.billing-current-label {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #6ee7b7;
+  font-weight: 600;
+}
+
+/* ── Feature list ── */
+.billing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.billing-features li {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #cbd5e1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feature-check {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.feature-check--pro {
+  color: #34d399;
+}

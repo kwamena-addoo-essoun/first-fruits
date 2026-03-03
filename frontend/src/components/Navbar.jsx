@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import HourStackLogo from './HourStackLogo';
 import './Navbar.css';
 
 function Navbar() {
@@ -22,7 +23,10 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        <h1 className="nav-brand" onClick={() => navigate('/')}>💼 Time Tracker</h1>
+        <div className="nav-brand" onClick={() => navigate('/')}>
+          <HourStackLogo size={38} />
+          <span>HourStack</span>
+        </div>
         
         <div className="nav-links">
           <a 
@@ -59,6 +63,13 @@ function Navbar() {
             onClick={(e) => { e.preventDefault(); navigate('/clients'); }}
           >
             Clients
+          </a>
+          <a
+            href="/billing"
+            className={`nav-link nav-link--billing ${isActive('/billing') ? 'active' : ''}`}
+            onClick={(e) => { e.preventDefault(); navigate('/billing'); }}
+          >
+            ⭐ Upgrade
           </a>
           {isAdmin && (
             <a

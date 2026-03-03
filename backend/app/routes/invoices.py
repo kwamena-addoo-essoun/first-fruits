@@ -9,6 +9,7 @@ from app.models.user import User
 from app.schemas.invoice import InvoiceCreate, InvoiceResponse
 from app.routes.users import get_current_user
 from app.services.invoice_service import InvoiceService, InvoicePDFGenerator
+from app.services.email_service import send_invoice_email
 from typing import List
 from datetime import UTC, datetime
 
@@ -180,3 +181,40 @@ async def download_invoice_pdf(
         media_type="application/pdf",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
+
+
+@router.post("/{invoice_id}/send")
+async def send_invoice_to_client(
+    invoice_id: int,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Email the invoice PDF directly to the client."""
+    invoice = db.query(Invoice).filter(Invoice.id == invoice_id, Invoice.user_id == user.id).first()
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    # Resolve the client email
+    client_email: str | None = None
+    if invoice.client_id:
+        client = db.query(Client).filter(Client.id == invoice.client_id).first()
+        if client:
+            client_email = client.email
+
+    if not client_email:
+        raise HTTPException(
+            status_code=400,
+            detail="No client email on file. Attach a client with an email address to this invoice first.",
+        )
+
+    try:
+        send_invoice_email(invoice, user, client_email)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {exc}")
+
+    # Auto-advance status to 'sent' if still a draft
+    if invoice.status == "draft":
+        invoice.status = "sent"
+        db.commit()
+
+    return {"message": f"Invoice {invoice.invoice_number} sent to {client_email}"}

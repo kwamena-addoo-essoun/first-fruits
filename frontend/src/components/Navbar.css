@@ -1,7 +1,9 @@
 .navbar {
-  background-color: #e67e22;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--navbar-bg);
+  color: var(--text-primary);
+  box-shadow: var(--navbar-shadow);
+  border-bottom: 1px solid var(--navbar-border);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav-container {
@@ -16,7 +18,15 @@
 .nav-brand {
   cursor: pointer;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  user-select: none;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -26,33 +36,57 @@
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--nav-link);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: white;
+  color: var(--accent);
 }
 
 .nav-link.active {
-  color: white;
-  border-bottom: 2px solid white;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
   padding-bottom: 0.25rem;
 }
 
 .nav-logout {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--border-mid);
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background-color 0.25s ease;
 }
 
 .nav-logout:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--accent-bg-hover);
+}
+
+/* Billing / upgrade link — subtle golden highlight */
+.nav-link--billing {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.1));
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 8px;
+  padding: 0.35rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.nav-link--billing:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(239, 68, 68, 0.18));
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #fde68a !important;
+}
+
+.nav-link--billing.active {
+  border-bottom: none;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
 }

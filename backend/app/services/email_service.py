@@ -127,3 +127,64 @@ def send_verification_email(to_email: str, token: str) -> None:
         server.sendmail(SMTP_FROM, to_email, msg.as_string())
 
     logger.info("Verification email sent to %s", to_email)
+
+
+def send_invoice_email(invoice, user, client_email: str) -> None:
+    """Send an invoice PDF as an attachment to the client.
+
+    Falls back to a warning log if SMTP is not configured, so development
+    works without a mail server.
+    """
+    from app.services.invoice_service import InvoicePDFGenerator  # lazy import to avoid circular
+    from email.mime.base import MIMEBase
+    from email import encoders
+
+    sender_name = user.company_name or user.username
+
+    if not _smtp_configured():
+        logger.warning(
+            "SMTP not configured — would send invoice %s to %s",
+            invoice.invoice_number,
+            client_email,
+        )
+        return
+
+    msg = MIMEMultipart("mixed")
+    msg["Subject"] = f"Invoice {invoice.invoice_number} from {sender_name}"
+    msg["From"] = SMTP_FROM
+    msg["To"] = client_email
+
+    due = invoice.due_date.strftime("%B %d, %Y")
+    notes_html = f"<p><em>{invoice.notes}</em></p>" if invoice.notes else ""
+    html = f"""
+    <p>Hi,</p>
+    <p>Please find attached invoice <strong>{invoice.invoice_number}</strong>
+       for <strong>${invoice.total_amount:,.2f}</strong>.</p>
+    <p>Due date: <strong>{due}</strong></p>
+    {notes_html}
+    <p>Thank you for your business!</p>
+    <p style="color:#666;">— {sender_name}</p>
+    """
+    msg.attach(MIMEText(html, "html"))
+
+    # Attach PDF
+    try:
+        pdf_bytes = InvoicePDFGenerator.generate(invoice, user)
+        attachment = MIMEBase("application", "pdf")
+        attachment.set_payload(pdf_bytes)
+        encoders.encode_base64(attachment)
+        attachment.add_header(
+            "Content-Disposition",
+            f'attachment; filename="{invoice.invoice_number}.pdf"',
+        )
+        msg.attach(attachment)
+    except Exception as exc:
+        logger.warning("PDF generation failed for invoice email: %s", exc)
+
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+        server.starttls()
+        if SMTP_USERNAME:
+            server.login(SMTP_USERNAME, SMTP_PASSWORD)
+        server.sendmail(SMTP_FROM, client_email, msg.as_string())
+
+    logger.info("Invoice %s emailed to %s", invoice.invoice_number, client_email)

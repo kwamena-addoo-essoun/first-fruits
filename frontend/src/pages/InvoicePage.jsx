@@ -134,12 +134,23 @@ function InvoicePage() {
     }
   };
 
-  const getStatusColor = (status) => {
+  const handleEmailToClient = async (invoice) => {
+    if (!window.confirm(`Email ${invoice.invoice_number} to the client on file?`)) return;
+    try {
+      const res = await invoiceAPI.sendToClient(invoice.id);
+      push('success', res.data.message || 'Invoice emailed to client.');
+      fetchData();
+    } catch (error) {
+      push('error', error?.response?.data?.detail || 'Failed to send invoice email.');
+    }
+  };
+
+  const getStatusClass = (status) => {
     switch (status) {
-      case 'paid': return '#27ae60';
-      case 'sent': return '#e67e22';
-      case 'draft': return '#95a5a6';
-      default: return '#3498db';
+      case 'paid':  return 'status-badge status-badge--paid';
+      case 'sent':  return 'status-badge status-badge--sent';
+      case 'draft': return 'status-badge status-badge--draft';
+      default:      return 'status-badge status-badge--default';
     }
   };
 
@@ -162,7 +173,7 @@ function InvoicePage() {
 
             {/* Client */}
             <div className="form-group">
-              <label>Client <span style={{ color: '#999', fontWeight: 400 }}>(optional)</span></label>
+              <label>Client <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(optional)</span></label>
               <select
                 value={selectedClientId}
                 onChange={(e) => { setSelectedClientId(e.target.value); setSelectedProjectId(''); }}
@@ -176,7 +187,7 @@ function InvoicePage() {
 
             {/* Project */}
             <div className="form-group">
-              <label>Project <span style={{ color: '#999', fontWeight: 400 }}>(optional — auto-computes hours)</span></label>
+              <label>Project <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(optional — auto-computes hours)</span></label>
               <select
                 value={selectedProjectId}
                 onChange={(e) => setSelectedProjectId(e.target.value)}
@@ -249,7 +260,7 @@ function InvoicePage() {
 
             {/* Notes */}
             <div className="form-group">
-              <label>Notes <span style={{ color: '#999', fontWeight: 400 }}>(optional)</span></label>
+              <label>Notes <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(optional)</span></label>
               <textarea
                 name="notes"
                 value={formData.notes}
@@ -286,19 +297,12 @@ function InvoicePage() {
               {invoices.map((invoice) => (
                 <tr key={invoice.id}>
                   <td><strong>{invoice.invoice_number}</strong></td>
-                  <td>{invoice.client_name || <span style={{ color: '#aaa' }}>—</span>}</td>
-                  <td>{invoice.project_name || <span style={{ color: '#aaa' }}>—</span>}</td>
+                  <td>{invoice.client_name || <span className="cell-empty">—</span>}</td>
+                  <td>{invoice.project_name || <span className="cell-empty">—</span>}</td>
                   <td>{invoice.total_hours.toFixed(2)}h</td>
                   <td><strong>${invoice.total_amount.toFixed(2)}</strong></td>
                   <td>
-                    <span style={{
-                      backgroundColor: getStatusColor(invoice.status),
-                      color: 'white',
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '4px',
-                      fontSize: '0.8rem',
-                      fontWeight: '600',
-                    }}>
+                    <span className={getStatusClass(invoice.status)}>
                       {invoice.status.toUpperCase()}
                     </span>
                   </td>
@@ -312,6 +316,15 @@ function InvoicePage() {
                       >
                         ⬇ PDF
                       </button>
+                      {invoice.client_name && (
+                        <button
+                          className="btn-small"
+                          onClick={() => handleEmailToClient(invoice)}
+                          title="Email invoice to client"
+                        >
+                          📧 Email
+                        </button>
+                      )}
                       {invoice.status === 'draft' && (
                         <>
                           <button

@@ -69,6 +69,7 @@ export const invoiceAPI = {
   updateStatus: (invoiceId, status) => api.put(`/invoices/${invoiceId}/status`, null, { params: { status } }),
   delete: (invoiceId) => api.delete(`/invoices/${invoiceId}`),
   getPDF: (invoiceId) => api.get(`/invoices/${invoiceId}/pdf`, { responseType: 'blob' }),
+  sendToClient: (invoiceId) => api.post(`/invoices/${invoiceId}/send`),
 };
 
 export const adminAPI = {
@@ -83,6 +84,12 @@ export const clientAPI = {
   create: (client) => api.post('/clients/', client),
   update: (clientId, data) => api.put(`/clients/${clientId}`, data),
   delete: (clientId) => api.delete(`/clients/${clientId}`),
+};
+
+export const billingAPI = {
+  getStatus: () => api.get('/billing/status'),
+  createCheckout: () => api.post('/billing/checkout'),
+  createPortal: () => api.post('/billing/portal'),
 };
 
 export default api;

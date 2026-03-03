@@ -15,6 +15,8 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import AdminPage from './pages/AdminPage';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import ResendVerificationPage from './pages/ResendVerificationPage';
+import BillingPage from './pages/BillingPage';
+import LandingPage from './pages/LandingPage';
 import { useAuthStore } from './store/authStore';
 
 function App() {
@@ -35,13 +37,14 @@ function App() {
         <Toast />
         <main className="main-content">
           <Routes>
-            <Route path="/" element={isAuthenticated ? <DashboardPage /> : <Navigate to="/login" />} />
+            <Route path="/" element={isAuthenticated ? <DashboardPage /> : <LandingPage />} />
             <Route path="/login" element={!isAuthenticated ? <LoginPage /> : <Navigate to="/" />} />
             <Route path="/register" element={!isAuthenticated ? <RegisterPage /> : <Navigate to="/" />} />
             <Route path="/projects" element={isAuthenticated ? <ProjectPage /> : <Navigate to="/login" />} />
             <Route path="/timelogs" element={isAuthenticated ? <TimeLogPage /> : <Navigate to="/login" />} />
             <Route path="/invoices" element={isAuthenticated ? <InvoicePage /> : <Navigate to="/login" />} />
             <Route path="/clients" element={isAuthenticated ? <ClientsPage /> : <Navigate to="/login" />} />
+            <Route path="/billing" element={isAuthenticated ? <BillingPage /> : <Navigate to="/login" />} />
             <Route path="/forgot-password" element={!isAuthenticated ? <ForgotPasswordPage /> : <Navigate to="/" />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />

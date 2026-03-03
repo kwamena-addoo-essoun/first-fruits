@@ -23,9 +23,9 @@ function ForgotPasswordPage() {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h1>💼 Freelancer Time Tracker</h1>
+          <h1>⏱️ HourStack</h1>
           <p className="auth-subtitle">Check your email</p>
-          <p style={{ textAlign: 'center', color: '#444', marginBottom: '1.5rem' }}>
+          <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
             If <strong>{email}</strong> is registered, you'll receive a reset link
             within a few minutes.
           </p>
@@ -40,7 +40,7 @@ function ForgotPasswordPage() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>💼 Freelancer Time Tracker</h1>
+        <h1>⏱️ HourStack</h1>
         <p className="auth-subtitle">Reset your password</p>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>

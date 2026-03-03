@@ -68,7 +68,7 @@ function AdminPage() {
             ? <p style={{ margin: '0.4rem 0 0' }}>Email sent successfully.</p>
             : (
               <>
-                <p style={{ margin: '0.4rem 0 0', fontSize: '0.85rem', color: '#555' }}>
+                <p style={{ margin: '0.4rem 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                   SMTP not configured — copy and send this link manually:
                 </p>
                 <a

@@ -55,6 +55,7 @@ class UserResponse(UserBase):
     user_id: str
     is_admin: bool = False
     is_verified: bool = False
+    plan: str = "free"
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

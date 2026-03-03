@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../pages/AuthPages.css';
 import { authAPI } from '../utils/api';
+import HourStackLogo from '../components/HourStackLogo';
 
 function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -26,7 +27,10 @@ function RegisterPage() {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h1>💼 Freelancer Time Tracker</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', marginBottom: '0.5rem' }}>
+            <HourStackLogo size={32} />
+            <h1 style={{ margin: 0 }}>HourStack</h1>
+          </div>
           <div className="success-message">
             Account created! Check your email for a verification link before logging in.
           </div>
@@ -39,7 +43,10 @@ function RegisterPage() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>💼 Freelancer Time Tracker</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', marginBottom: '0.5rem' }}>
+          <HourStackLogo size={32} />
+          <h1 style={{ margin: 0 }}>HourStack</h1>
+        </div>
         <p className="auth-subtitle">Create your account</p>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleRegister}>

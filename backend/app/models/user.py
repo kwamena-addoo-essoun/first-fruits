@@ -18,6 +18,11 @@ class User(Base):
     is_verified = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime, default=lambda: datetime.now(UTC))
 
+    # Billing / subscription
+    plan = Column(String, default="free", nullable=False)
+    stripe_customer_id = Column(String, nullable=True)
+    stripe_subscription_id = Column(String, nullable=True)
+
     clients = relationship("Client", back_populates="freelancer", cascade="all, delete-orphan")
     projects = relationship("Project", back_populates="freelancer", cascade="all, delete-orphan")
     timelogs = relationship("TimeLog", back_populates="freelancer", cascade="all, delete-orphan")

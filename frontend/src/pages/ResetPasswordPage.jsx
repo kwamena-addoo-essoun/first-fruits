@@ -36,8 +36,8 @@ function ResetPasswordPage() {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h1>💼 Freelancer Time Tracker</h1>
-          <p className="auth-subtitle" style={{ color: '#721c24' }}>
+          <h1>⏱️ HourStack</h1>
+          <p className="auth-subtitle" style={{ color: 'var(--text-error)' }}>
             Missing reset token. Use the link from your email.
           </p>
           <p className="auth-link"><Link to="/forgot-password">Request a new link</Link></p>
@@ -50,9 +50,9 @@ function ResetPasswordPage() {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h1>💼 Freelancer Time Tracker</h1>
+          <h1>⏱️ HourStack</h1>
           <p className="auth-subtitle">Password updated!</p>
-          <p style={{ textAlign: 'center', color: '#444' }}>
+          <p style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
             Redirecting to login…
           </p>
         </div>
@@ -63,7 +63,7 @@ function ResetPasswordPage() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>💼 Freelancer Time Tracker</h1>
+        <h1>⏱️ HourStack</h1>
         <p className="auth-subtitle">Choose a new password</p>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>

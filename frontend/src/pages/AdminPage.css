@@ -1,116 +1,123 @@
+﻿/* ─── Admin page — uses CSS design tokens ─── */
 .admin-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2.5rem 2rem 4rem;
+  animation: dashFadeIn 0.45s ease;
 }
 
 .admin-container h2 {
   margin-bottom: 0.25rem;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .admin-subtitle {
-  color: #666;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
 }
 
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .admin-table th,
 .admin-table td {
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
 }
 
 .admin-table th {
-  background: #f8f8f8;
-  font-weight: 600;
-  color: #444;
-  font-size: 0.8rem;
+  background: var(--bg-table-header);
+  font-weight: 700;
+  color: var(--accent-dim);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
+}
+
+.admin-table td {
+  color: var(--text-primary);
+  font-size: 0.88rem;
 }
 
 .admin-table tr:last-child td {
   border-bottom: none;
 }
 
-.admin-table tr:hover td {
-  background: #fafafa;
+.admin-table tbody tr {
+  transition: background 0.2s ease;
 }
 
-.badge {
+.admin-table tbody tr:hover td {
+  background: var(--bg-table-row-hover);
+}
+
+.admin-badge {
   display: inline-block;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+}
+
+.admin-badge--admin {
+  color: #a064ff;
+  background: rgba(160, 100, 255, 0.1);
+  border: 1px solid rgba(160, 100, 255, 0.22);
+}
+
+.admin-badge--user {
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--border-mid);
+}
+
+.btn-danger {
+  background: rgba(255, 70, 70, 0.08);
+  border: 1px solid rgba(255, 70, 70, 0.25);
+  color: #ff8888;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.badge-admin {
-  background: #fff3cd;
-  color: #856404;
+html[data-theme="light"] .btn-danger {
+  background: rgba(200, 0, 0, 0.06);
+  border-color: rgba(200, 0, 0, 0.2);
+  color: #c00;
 }
 
-.badge-user {
-  background: #e9ecef;
-  color: #495057;
-}
-
-.action-cell {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  align-items: center;
+.btn-danger:hover {
+  background: rgba(255, 70, 70, 0.15);
 }
 
 .btn-small {
-  padding: 4px 10px;
-  font-size: 0.78rem;
-  border: none;
-  border-radius: 4px;
+  background: var(--accent-bg);
+  border: 1px solid var(--border-mid);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
-  background: #e67e22;
-  color: white;
-  font-weight: 500;
-  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .btn-small:hover {
-  background: #d35400;
-}
-
-.btn-small.btn-danger {
-  background: #dc3545;
-}
-
-.btn-small.btn-danger:hover {
-  background: #c82333;
-}
-
-.btn-small.btn-outline {
-  background: transparent;
-  border: 1px solid #ccc;
-  color: #555;
-}
-
-.btn-small.btn-outline:hover {
-  background: #f5f5f5;
-}
-
-.reset-url-box {
-  background: #f0f9e8;
-  border: 1px solid #c3e6cb;
-  border-radius: 6px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+  background: var(--accent-bg-hover);
 }

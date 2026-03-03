@@ -1,2 +1,88 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', sans-serif; background-color: #ecf0f1; }
+html {
+  scroll-behavior: smooth;
+  background: #010400;
+  min-height: 100%;
+}
+
+/* ══════════════════════════════════════════
+   CSS DESIGN TOKENS — dark (default)
+══════════════════════════════════════════ */
+:root {
+  /* backgrounds */
+  --bg-base:            #010400;
+  --bg-gradient:        radial-gradient(ellipse at top left, #051500 0%, #010400 55%, #000200 100%);
+  --bg-card:            #f0fef0;
+  --bg-card-hover:      #e6fbe6;
+  --bg-input:           #ffffff;
+  --bg-table-header:    #e0f5e0;
+  --bg-table-row-hover: #eaf5ea;
+
+  /* borders */
+  --border:             rgba(0, 160, 50, 0.25);
+  --border-mid:         rgba(0, 160, 50, 0.38);
+  --border-focus:       rgba(0, 200, 60, 0.65);
+
+  /* text — dark backgrounds (nav, page headings) */
+  --text-primary:   #d8ffd8;
+  --text-secondary: rgba(216, 255, 216, 0.7);
+  --text-muted:     rgba(216, 255, 216, 0.48);
+  --text-faint:     rgba(216, 255, 216, 0.28);
+
+  /* nav */
+  --navbar-bg:     #020600;
+  --navbar-border: rgba(0, 255, 65, 0.12);
+  --navbar-shadow: 0 2px 16px rgba(0, 255, 65, 0.12);
+  --nav-link:      rgba(220, 255, 220, 0.82);
+
+  /* accent — matrix green */
+  --accent:          #00ff41;
+  --accent-hover:    #1aff57;
+  --accent-dim:      rgba(0, 255, 65, 0.6);
+  --accent-bg:       rgba(0, 255, 65, 0.07);
+  --accent-bg-hover: rgba(0, 255, 65, 0.13);
+  --accent-text:     #010400;
+
+  /* sweep — yellow */
+  --sweep:           #ffd000;
+  --sweep-dim:       rgba(255, 208, 0, 0.6);
+  --sweep-bg:        rgba(255, 208, 0, 0.07);
+
+  /* shadows */
+  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg:   0 24px 60px rgba(0, 0, 0, 0.6);
+
+  /* spinner / glow */
+  --spinner-track: rgba(0, 255, 65, 0.1);
+
+  /* highlights */
+  --bg-highlight: rgba(0, 180, 60, 0.12);
+  --text-error:   #cc0000;
+}
+
+/* ── White surfaces: flip text vars to dark so all card children auto-read correctly ── */
+.kpi-card, .project-card, .profile-panel, .dash-header-right,
+.auth-card, .card, .form-card,
+.data-table, .admin-table,
+input, select, textarea {
+  --text-primary:   #0a1a0a;
+  --text-secondary: rgba(10, 26, 10, 0.62);
+  --text-muted:     rgba(10, 26, 10, 0.44);
+  --text-faint:     rgba(10, 26, 10, 0.26);
+  --accent-bg:      rgba(0, 160, 50, 0.10);
+  --accent-bg-hover:rgba(0, 160, 50, 0.18);
+  --accent-dim:     rgba(0, 150, 45, 0.7);
+  --border:         rgba(0, 160, 50, 0.2);
+  --border-mid:     rgba(0, 160, 50, 0.32);
+  color: #0a1a0a;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -187,14 +187,14 @@ function TimeLogPage() {
         <h2>Live Timer</h2>
         {activeTimer ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-            <div style={{ fontSize: '2.5rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: '#2c3e50' }}>
+            <div style={{ fontSize: '2.5rem', fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--text-primary)' }}>
               {formatElapsed(elapsed)}
             </div>
-            <div style={{ color: '#666' }}>
+            <div style={{ color: 'var(--text-secondary)' }}>
               <div><strong>{projects.find((p) => p.id === activeTimer.project_id)?.name}</strong></div>
               {activeTimer.description && <div style={{ fontSize: '0.9rem' }}>{activeTimer.description}</div>}
             </div>
-            <button className="btn-primary" style={{ background: '#e74c3c' }} onClick={handleStopTimer}>
+            <button className="btn-primary" style={{ background: 'rgba(231,76,60,0.85)', color: '#fff' }} onClick={handleStopTimer}>
               ⏹ Stop
             </button>
           </div>
@@ -208,7 +208,7 @@ function TimeLogPage() {
               </select>
             </div>
             <div className="form-group" style={{ marginBottom: 0, minWidth: '220px' }}>
-              <label>Description <span style={{ color: '#999', fontWeight: 400 }}>(optional)</span></label>
+              <label>Description <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>(optional)</span></label>
               <input
                 type="text"
                 value={timerDesc}
@@ -216,7 +216,7 @@ function TimeLogPage() {
                 placeholder="What are you working on?"
               />
             </div>
-            <button className="btn-primary" style={{ background: '#27ae60' }} onClick={handleStartTimer}>
+            <button className="btn-primary" style={{ background: 'var(--accent)', color: 'var(--accent-text)' }} onClick={handleStartTimer}>
               ▶ Start Timer
             </button>
           </div>
@@ -281,7 +281,7 @@ function TimeLogPage() {
                 const isRunning = log.end_time === null;
                 if (editingId === log.id) {
                   return (
-                    <tr key={log.id} style={{ background: '#f0f7ff' }}>
+                    <tr key={log.id} style={{ background: 'var(--bg-highlight)' }}>
                       <td>{projects.find((p) => p.id === log.project_id)?.name}</td>
                       <td>—</td>
                       <td>
@@ -322,12 +322,12 @@ function TimeLogPage() {
                     <td>{projects.find((p) => p.id === log.project_id)?.name || '—'}</td>
                     <td>
                       {isRunning
-                        ? <span style={{ color: '#27ae60', fontWeight: 600 }}>● Running</span>
+                        ? <span className="running-indicator">● Running</span>
                         : `${(log.hours || 0).toFixed(2)}h`}
                     </td>
-                    <td>{log.description || <span style={{ color: '#aaa' }}>—</span>}</td>
+                    <td>{log.description || <span className="cell-empty">—</span>}</td>
                     <td>{new Date(log.start_time).toLocaleString()}</td>
-                    <td>{log.end_time ? new Date(log.end_time).toLocaleString() : <span style={{ color: '#aaa' }}>—</span>}</td>
+                    <td>{log.end_time ? new Date(log.end_time).toLocaleString() : <span className="cell-empty">—</span>}</td>
                     <td>
                       <div className="project-actions">
                         {!isRunning && (

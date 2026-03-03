@@ -23,7 +23,7 @@ function ResendVerificationPage() {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h1>💼 Freelancer Time Tracker</h1>
+          <h1>⏱️ HourStack</h1>
           <div className="success-message">
             If that email is registered and unverified, a new link has been sent. Check your inbox.
           </div>
@@ -36,7 +36,7 @@ function ResendVerificationPage() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>💼 Freelancer Time Tracker</h1>
+        <h1>⏱️ HourStack</h1>
         <p className="auth-subtitle">Resend verification email</p>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>

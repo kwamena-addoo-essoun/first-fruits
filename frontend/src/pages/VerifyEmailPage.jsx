@@ -29,7 +29,7 @@ function VerifyEmailPage() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>💼 Freelancer Time Tracker</h1>
+        <h1>⏱️ HourStack</h1>
         {status === 'loading' && <p className="auth-subtitle">Verifying your email…</p>}
         {status === 'success' && (
           <>

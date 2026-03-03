@@ -1,0 +1,523 @@
+/* ────────────────────────────────────────────────────────────
+   LANDING PAGE — dark-themed, gradient accents
+   ──────────────────────────────────────────────────────────── */
+
+:root {
+  --lp-bg: #0b1120;
+  --lp-card: rgba(15, 23, 42, 0.85);
+  --lp-border: rgba(148, 163, 184, 0.1);
+  --lp-text: #f1f5f9;
+  --lp-muted: #94a3b8;
+  --lp-accent: #6366f1;
+  --lp-accent2: #8b5cf6;
+  --lp-gold: #f59e0b;
+}
+
+.landing {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--lp-bg);
+  color: var(--lp-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── section helpers ── */
+.landing-section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.landing-section-title {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  color: var(--lp-text);
+}
+
+.landing-section-sub {
+  text-align: center;
+  color: var(--lp-muted);
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── buttons ── */
+.landing-btn-primary {
+  background: linear-gradient(135deg, var(--lp-accent), var(--lp-accent2));
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4);
+}
+
+.landing-btn-primary--lg {
+  padding: 0.95rem 2rem;
+  font-size: 1.05rem;
+  border-radius: 12px;
+}
+
+.landing-btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.landing-btn-ghost {
+  background: transparent;
+  color: var(--lp-muted);
+  border: 1px solid var(--lp-border);
+  border-radius: 10px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.landing-btn-ghost--lg {
+  padding: 0.95rem 2rem;
+  font-size: 1.05rem;
+  border-radius: 12px;
+}
+
+.landing-btn-ghost:hover {
+  border-color: rgba(148, 163, 184, 0.4);
+  color: var(--lp-text);
+}
+
+.landing-btn-outline {
+  background: transparent;
+  color: var(--lp-text);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.landing-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(148, 163, 184, 0.5);
+}
+
+/* ── logo ── */
+.landing-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.landing-logo-icon {
+  font-size: 1.5rem;
+}
+
+.landing-logo-text {
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── NAV ── */
+.landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  background: rgba(11, 17, 32, 0.85);
+  border-bottom: 1px solid var(--lp-border);
+}
+
+.landing-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing-nav-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ── HERO ── */
+.landing-hero {
+  position: relative;
+  padding: 6rem 1.5rem 5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.landing-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.landing-hero-badge {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.landing-hero-title {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(135deg, #f1f5f9 40%, #a5b4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-hero-sub {
+  font-size: 1.15rem;
+  color: var(--lp-muted);
+  line-height: 1.65;
+  margin-bottom: 2.25rem;
+}
+
+.landing-hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.landing-hero-note {
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+/* Blobs */
+.landing-hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.landing-hero-blob--1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, #6366f1, transparent 70%);
+  top: -120px;
+  left: -150px;
+}
+
+.landing-hero-blob--2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, #8b5cf6, transparent 70%);
+  bottom: -100px;
+  right: -100px;
+}
+
+/* ── FEATURES ── */
+.landing-features {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.04) 0%, transparent 100%);
+}
+
+.landing-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.landing-feature-card {
+  background: var(--lp-card);
+  border: 1px solid var(--lp-border);
+  border-radius: 14px;
+  padding: 1.75rem 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.landing-feature-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-3px);
+}
+
+.landing-feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.85rem;
+}
+
+.landing-feature-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--lp-text);
+}
+
+.landing-feature-card p {
+  font-size: 0.9rem;
+  color: var(--lp-muted);
+  line-height: 1.6;
+}
+
+/* ── HOW IT WORKS ── */
+.landing-how {
+  padding: 5rem 0;
+}
+
+.landing-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.landing-step {
+  flex: 1;
+  min-width: 200px;
+  max-width: 280px;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.landing-step-num {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lp-accent), var(--lp-accent2));
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.4);
+}
+
+.landing-step h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--lp-text);
+}
+
+.landing-step p {
+  font-size: 0.88rem;
+  color: var(--lp-muted);
+  line-height: 1.6;
+}
+
+.landing-step-connector {
+  font-size: 1.75rem;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .landing-step-connector {
+    display: none;
+  }
+}
+
+/* ── TESTIMONIALS ── */
+.landing-testimonials {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.04) 50%, transparent 100%);
+}
+
+.landing-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.landing-testimonial-card {
+  background: var(--lp-card);
+  border: 1px solid var(--lp-border);
+  border-radius: 14px;
+  padding: 1.75rem;
+}
+
+.landing-testimonial-quote {
+  font-size: 0.95rem;
+  color: var(--lp-text);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.landing-testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.landing-testimonial-author strong {
+  font-size: 0.9rem;
+  color: var(--lp-text);
+}
+
+.landing-testimonial-author span {
+  font-size: 0.82rem;
+  color: var(--lp-muted);
+}
+
+/* ── PRICING ── */
+.landing-pricing {
+  padding: 5rem 0;
+}
+
+.landing-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.landing-pricing-card {
+  background: var(--lp-card);
+  border: 1px solid var(--lp-border);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.landing-pricing-card--pro {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(40, 25, 5, 0.6));
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.1);
+}
+
+.landing-pricing-popular {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--lp-gold), #ef4444);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.landing-pricing-card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--lp-text);
+}
+
+.landing-pricing-price {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--lp-text);
+  line-height: 1;
+}
+
+.landing-pricing-price span {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--lp-muted);
+}
+
+.landing-pricing-desc {
+  font-size: 0.88rem;
+  color: var(--lp-muted);
+}
+
+.landing-pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.landing-pricing-features li {
+  font-size: 0.9rem;
+  color: var(--lp-muted);
+}
+
+.landing-pricing-card--pro .landing-pricing-features li {
+  color: #cbd5e1;
+}
+
+/* ── CTA BANNER ── */
+.landing-cta {
+  padding: 5rem 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.2), transparent 70%);
+}
+
+.landing-cta-inner {
+  text-align: center;
+}
+
+.landing-cta h2 {
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.landing-cta p {
+  color: var(--lp-muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+/* ── FOOTER ── */
+.landing-footer {
+  border-top: 1px solid var(--lp-border);
+  padding: 1.75rem 1.5rem;
+}
+
+.landing-footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.landing-footer-copy {
+  color: #475569;
+  font-size: 0.82rem;
+}
