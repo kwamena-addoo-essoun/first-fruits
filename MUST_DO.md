@@ -6,13 +6,12 @@ Things that must be finished before this is a real, money-making product.
 
 ## 🔴 Critical (do first)
 
-### 1. Enforce Free Plan Limits on the Backend
-Right now the Free/Pro distinction is cosmetic — there are no server-side guards.
+### 1. Enforce Free Plan Limits on the Backend ✅
 
-- [ ] Max **3 active projects** for free users → return `403` on `POST /api/projects/` if limit reached
-- [ ] Max **10 invoices per month** for free users → return `403` on `POST /api/invoices/` if limit reached
-- [ ] Gate **"Email invoice to client"** (`POST /api/invoices/{id}/send`) behind Pro plan only
-- [ ] Return plan info in relevant API responses so the frontend can show upgrade prompts
+- [x] Max **3 active projects** for free users → `403` on `POST /api/projects/` if limit reached
+- [x] Max **10 invoices per month** for free users → `403` on `POST /api/invoices/` if limit reached
+- [x] Gate **"Email invoice to client"** (`POST /api/invoices/{id}/send`) behind Pro plan only
+- [x] Return plan info in relevant API responses so the frontend can show upgrade prompts
 
 ### 2. Configure & Test Stripe End-to-End
 The plumbing is in place but the keys are empty.
@@ -32,9 +31,9 @@ The plumbing is in place but the keys are empty.
 - [ ] Confirm subscription activates and `users.plan` is set to `"pro"` in the DB
 - [ ] Test cancellation via Stripe Customer Portal and confirm plan reverts to `"free"`
 
-### 3. Wire Up Upgrade Prompts in the Frontend
-- [ ] Show a banner/modal when a free user hits a plan limit
-- [ ] "Email invoice" button should show a "Pro only" tooltip / redirect to `/billing` for free users
+### 3. Wire Up Upgrade Prompts in the Frontend ✅
+- [x] Show a banner/modal when a free user hits a plan limit (ProjectPage)
+- [x] "Email invoice" button shows a 🔒 Pro button → redirects to `/billing` for free users
 
 ---
 

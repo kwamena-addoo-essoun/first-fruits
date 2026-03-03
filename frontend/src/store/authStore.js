@@ -23,10 +23,12 @@ export const useAuthStore = create((set) => ({
   isAuthenticated: false,
   token: null,
   isAdmin: false,
+  plan: 'free',
+  setPlan: (plan) => set({ plan: plan || 'free' }),
   setAuth: (isAuthenticated, token) => {
     if (isAuthenticated && token && isTokenExpired(token)) {
       localStorage.removeItem('token');
-      set({ isAuthenticated: false, token: null, isAdmin: false });
+      set({ isAuthenticated: false, token: null, isAdmin: false, plan: 'free' });
       return;
     }
     const isAdmin = token ? (decodePayload(token).is_admin ?? false) : false;
@@ -36,7 +38,7 @@ export const useAuthStore = create((set) => ({
     const token = localStorage.getItem('token');
     if (!token || isTokenExpired(token)) {
       localStorage.removeItem('token');
-      set({ isAuthenticated: false, token: null, isAdmin: false });
+      set({ isAuthenticated: false, token: null, isAdmin: false, plan: 'free' });
       return null;
     }
     const isAdmin = decodePayload(token).is_admin ?? false;
@@ -45,6 +47,6 @@ export const useAuthStore = create((set) => ({
   },
   logout: () => {
     localStorage.removeItem('token');
-    set({ isAuthenticated: false, token: null, isAdmin: false });
+    set({ isAuthenticated: false, token: null, isAdmin: false, plan: 'free' });
   },
 }));

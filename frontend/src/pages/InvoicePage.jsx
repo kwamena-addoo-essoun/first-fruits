@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DashboardPage.css';
 import { invoiceAPI, clientAPI, projectAPI } from '../utils/api';
 import { useToastStore } from '../store/toastStore';
+import { useAuthStore } from '../store/authStore';
 
 function InvoicePage() {
   const push = useToastStore((s) => s.push);
+  const plan = useAuthStore((s) => s.plan);
+  const navigate = useNavigate();
+  const isPro = plan === 'pro';
   const [invoices, setInvoices] = useState([]);
   const [clients, setClients] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -317,13 +322,23 @@ function InvoicePage() {
                         ⬇ PDF
                       </button>
                       {invoice.client_name && (
-                        <button
-                          className="btn-small"
-                          onClick={() => handleEmailToClient(invoice)}
-                          title="Email invoice to client"
-                        >
-                          📧 Email
-                        </button>
+                        isPro ? (
+                          <button
+                            className="btn-small"
+                            onClick={() => handleEmailToClient(invoice)}
+                            title="Email invoice to client"
+                          >
+                            📧 Email
+                          </button>
+                        ) : (
+                          <button
+                            className="btn-small btn-pro-lock"
+                            onClick={() => navigate('/billing')}
+                            title="Upgrade to Pro to email invoices"
+                          >
+                            🔒 Pro
+                          </button>
+                        )
                       )}
                       {invoice.status === 'draft' && (
                         <>

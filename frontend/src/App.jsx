@@ -18,15 +18,21 @@ import ResendVerificationPage from './pages/ResendVerificationPage';
 import BillingPage from './pages/BillingPage';
 import LandingPage from './pages/LandingPage';
 import { useAuthStore } from './store/authStore';
+import { userAPI } from './utils/api';
 
 function App() {
-  const { isAuthenticated, isAdmin, validateStoredToken } = useAuthStore();
+  const { isAuthenticated, isAdmin, validateStoredToken, setPlan } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    validateStoredToken();
+    const token = validateStoredToken();
+    if (token) {
+      userAPI.getMe()
+        .then((res) => setPlan(res.data.plan))
+        .catch(() => {});
+    }
     setIsLoading(false);
-  }, [validateStoredToken]);
+  }, [validateStoredToken, setPlan]);
 
   if (isLoading) return <div className="loading">Loading...</div>;
 

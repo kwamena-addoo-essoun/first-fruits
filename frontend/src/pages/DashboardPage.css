@@ -809,6 +809,18 @@ html[data-theme="light"] .btn-delete {
   color: #c00 !important;
 }
 
+.btn-pro-lock {
+  background: rgba(212, 175, 55, 0.08) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  color: #c9a227 !important;
+  cursor: pointer;
+}
+
+.btn-pro-lock:hover {
+  background: rgba(212, 175, 55, 0.18) !important;
+  border-color: rgba(212, 175, 55, 0.5) !important;
+}
+
 .btn-delete:hover {
   background: rgba(231, 76, 60, 0.16) !important;
 }

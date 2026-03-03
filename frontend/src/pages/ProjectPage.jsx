@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DashboardPage.css';
 import { projectAPI } from '../utils/api';
 import { useToastStore } from '../store/toastStore';
+import { useAuthStore } from '../store/authStore';
+
+const FREE_PROJECT_LIMIT = 3;
 
 function ProjectPage() {
   const push = useToastStore((s) => s.push);
+  const plan = useAuthStore((s) => s.plan);
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -13,6 +19,8 @@ function ProjectPage() {
     description: '',
     hourly_rate: ''
   });
+
+  const atLimit = plan === 'free' && projects.length >= FREE_PROJECT_LIMIT;
 
   useEffect(() => {
     fetchProjects();
@@ -76,11 +84,19 @@ function ProjectPage() {
     <div className="dashboard">
       <h1>💼 Projects</h1>
 
-      <button 
-        className="btn-primary" 
-        onClick={() => setShowForm(!showForm)}
+      {atLimit && (
+        <div className="plan-limit-banner">
+          <span>🔒 You've reached the <strong>3-project limit</strong> on the Free plan.</span>
+          <button className="plan-limit-upgrade-btn" onClick={() => navigate('/billing')}>Upgrade to Pro →</button>
+        </div>
+      )}
+
+      <button
+        className="btn-primary"
+        onClick={() => { if (!atLimit) setShowForm(!showForm); else navigate('/billing'); }}
+        title={atLimit ? 'Upgrade to Pro to create more projects' : ''}
       >
-        {showForm ? 'Cancel' : '+ New Project'}
+        {showForm ? 'Cancel' : (atLimit ? '🔒 Upgrade for more projects' : '+ New Project')}
       </button>
 
       {showForm && (

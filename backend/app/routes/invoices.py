@@ -15,6 +15,8 @@ from datetime import UTC, datetime
 
 router = APIRouter()
 
+FREE_MONTHLY_INVOICE_LIMIT = 10
+
 
 @router.post("/", response_model=InvoiceResponse)
 async def create_invoice(
@@ -23,6 +25,23 @@ async def create_invoice(
     db: Session = Depends(get_db),
 ):
     """Generate invoice, optionally auto-computing hours from a project's uninvoiced timelogs."""
+    if (user.plan or "free") == "free":
+        from sqlalchemy import extract
+        now = datetime.now(UTC)
+        monthly_count = (
+            db.query(Invoice)
+            .filter(
+                Invoice.user_id == user.id,
+                extract("year", Invoice.issue_date) == now.year,
+                extract("month", Invoice.issue_date) == now.month,
+            )
+            .count()
+        )
+        if monthly_count >= FREE_MONTHLY_INVOICE_LIMIT:
+            raise HTTPException(
+                status_code=403,
+                detail=f"Free plan is limited to {FREE_MONTHLY_INVOICE_LIMIT} invoices per month. Upgrade to Pro for unlimited invoices.",
+            )
     total_hours = invoice.total_hours
     hourly_rate = invoice.hourly_rate
     client_name = None
@@ -189,7 +208,12 @@ async def send_invoice_to_client(
     user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Email the invoice PDF directly to the client."""
+    """Email the invoice PDF directly to the client. Requires Pro plan."""
+    if (user.plan or "free") != "pro":
+        raise HTTPException(
+            status_code=403,
+            detail="Emailing invoices is a Pro feature. Upgrade to unlock it.",
+        )
     invoice = db.query(Invoice).filter(Invoice.id == invoice_id, Invoice.user_id == user.id).first()
     if not invoice:
         raise HTTPException(status_code=404, detail="Invoice not found")

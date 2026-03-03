@@ -10,9 +10,18 @@ from typing import List
 
 router = APIRouter()
 
+FREE_PROJECT_LIMIT = 3
+
 @router.post("/", response_model=ProjectResponse)
 async def create_project(project: ProjectCreate, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """Create a new project"""
+    if (user.plan or "free") == "free":
+        project_count = db.query(Project).filter(Project.user_id == user.id).count()
+        if project_count >= FREE_PROJECT_LIMIT:
+            raise HTTPException(
+                status_code=403,
+                detail=f"Free plan is limited to {FREE_PROJECT_LIMIT} projects. Upgrade to Pro for unlimited projects.",
+            )
     if project.client_id is not None:
         client = db.query(Client).filter(Client.id == project.client_id, Client.user_id == user.id).first()
         if not client:

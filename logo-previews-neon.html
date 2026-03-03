@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>HourStack — Neon Logo Previews</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #fff; padding: 2rem; }
+  h1 { text-align: center; margin-bottom: .4rem; font-size: 1.4rem; color: #888; letter-spacing:.06em; }
+  p.sub { text-align:center; color:#444; margin-bottom:2.5rem; font-size:.85rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.5rem; }
+  .card {
+    background: #0f0f1a;
+    border-radius: 16px;
+    padding: 2rem 1.5rem 1.5rem;
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+    border: 1px solid #1e1e2e;
+    cursor: pointer;
+    transition: border-color .2s, transform .15s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-4px); }
+  .card label { font-size: .75rem; color: #555; letter-spacing:.08em; text-transform:uppercase; }
+  .card strong { font-size: .9rem; color:#aaa; text-align:center; }
+  .navbar-mock {
+    border-radius: 10px;
+    padding: .65rem 1.4rem;
+    display: flex; align-items: center; gap: .65rem;
+    font-size: 1.15rem; font-weight: 700; color: #fff;
+    letter-spacing: .02em;
+  }
+</style>
+</head>
+<body>
+<h1>HourStack — Neon Variations</h1>
+<p class="sub">All based on style C · hover to highlight · tell Copilot the letter</p>
+<div class="grid">
+
+  <!-- C1: Cyan neon (original C) -->
+  <div class="card" style="--c:#00d4ff" onmouseenter="this.style.borderColor='#00d4ff';this.style.boxShadow='0 0 20px #00d4ff33'" onmouseleave="this.style.borderColor='#1e1e2e';this.style.boxShadow='none'">
+    <label>C1 — Cyan (original)</label>
+    <div class="navbar-mock" style="background:#0a0a1a;border:1px solid #00d4ff22">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="c1g"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="24" cy="24" r="21" stroke="#00d4ff" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity=".3" filter="url(#c1g)"/>
+        <circle cx="24" cy="24" r="17" stroke="#00d4ff" stroke-width="2.5" fill="rgba(0,212,255,.06)" filter="url(#c1g)"/>
+        <circle cx="24" cy="24" r="11" fill="#050d14" stroke="#00d4ff" stroke-width=".8"/>
+        <line x1="24" y1="24" x2="20" y2="16" stroke="#00d4ff" stroke-width="2.2" stroke-linecap="round" filter="url(#c1g)"/>
+        <line x1="24" y1="24" x2="30" y2="20" stroke="#00d4ff" stroke-width="1.6" stroke-linecap="round" filter="url(#c1g)"/>
+        <line x1="24" y1="24" x2="24" y2="33" stroke="#ff4757" stroke-width="1.2" stroke-linecap="round" filter="url(#c1g)"/>
+        <circle cx="24" cy="24" r="1.6" fill="#00d4ff" filter="url(#c1g)"/>
+        <circle cx="24" cy="8"  r="1.2" fill="#00d4ff" opacity=".7"/>
+        <circle cx="24" cy="40" r="1.2" fill="#00d4ff" opacity=".7"/>
+        <circle cx="8"  cy="24" r="1.2" fill="#00d4ff" opacity=".7"/>
+        <circle cx="40" cy="24" r="1.2" fill="#00d4ff" opacity=".7"/>
+      </svg>
+      HourStack
+    </div>
+    <strong>Cyan rings + red second hand</strong>
+  </div>
+
+  <!-- C2: Electric green -->
+  <div class="card" onmouseenter="this.style.borderColor='#00ff88';this.style.boxShadow='0 0 20px #00ff8833'" onmouseleave="this.style.borderColor='#1e1e2e';this.style.boxShadow='none'">
+    <label>C2 — Electric Green</label>
+    <div class="navbar-mock" style="background:#050f08;border:1px solid #00ff8822">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="c2g"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="24" cy="24" r="21" stroke="#00ff88" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity=".25" filter="url(#c2g)"/>
+        <circle cx="24" cy="24" r="17" stroke="#00ff88" stroke-width="2.5" fill="rgba(0,255,136,.05)" filter="url(#c2g)"/>
+        <circle cx="24" cy="24" r="11" fill="#050f08" stroke="#00ff88" stroke-width=".8"/>
+        <line x1="24" y1="24" x2="20" y2="16" stroke="#00ff88" stroke-width="2.2" stroke-linecap="round" filter="url(#c2g)"/>
+        <line x1="24" y1="24" x2="30" y2="20" stroke="#00ff88" stroke-width="1.6" stroke-linecap="round" filter="url(#c2g)"/>
+        <line x1="24" y1="24" x2="24" y2="33" stroke="#fff000" stroke-width="1.2" stroke-linecap="round" filter="url(#c2g)"/>
+        <circle cx="24" cy="24" r="1.6" fill="#00ff88" filter="url(#c2g)"/>
+        <circle cx="24" cy="8"  r="1.2" fill="#00ff88" opacity=".8"/>
+        <circle cx="24" cy="40" r="1.2" fill="#00ff88" opacity=".8"/>
+        <circle cx="8"  cy="24" r="1.2" fill="#00ff88" opacity=".8"/>
+        <circle cx="40" cy="24" r="1.2" fill="#00ff88" opacity=".8"/>
+      </svg>
+      HourStack
+    </div>
+    <strong>Matrix green + yellow sweep</strong>
+  </div>
+
+  <!-- C3: Purple/violet -->
+  <div class="card" onmouseenter="this.style.borderColor='#bf5fff';this.style.boxShadow='0 0 20px #bf5fff33'" onmouseleave="this.style.borderColor='#1e1e2e';this.style.boxShadow='none'">
+    <label>C3 — Violet</label>
+    <div class="navbar-mock" style="background:#0a0512;border:1px solid #bf5fff22">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="c3g"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="24" cy="24" r="21" stroke="#bf5fff" stroke-width="1" stroke-dasharray="4 3" fill="none" opacity=".25" filter="url(#c3g)"/>
+        <circle cx="24" cy="24" r="17" stroke="#bf5fff" stroke-width="2.5" fill="rgba(191,95,255,.05)" filter="url(#c3g)"/>
+        <circle cx="24" cy="24" r="11" fill="#0a0512" stroke="#bf5fff" stroke-width=".8"/>
+        <line x1="24" y1="24" x2="20" y2="16" stroke="#bf5fff" stroke-width="2.2" stroke-linecap="round" filter="url(#c3g)"/>
+        <line x1="24" y1="24" x2="30" y2="20" stroke="#bf5fff" stroke-width="1.6" stroke-linecap="round" filter="url(#c3g)"/>
+        <line x1="24" y1="24" x2="24" y2="33" stroke="#ff79c6" stroke-width="1.2" stroke-linecap="round" filter="url(#c3g)"/>
+        <circle cx="24" cy="24" r="1.6" fill="#bf5fff" filter="url(#c3g)"/>
+        <circle cx="24" cy="8"  r="1.2" fill="#bf5fff" opacity=".8"/>
+        <circle cx="24" cy="40" r="1.2" fill="#bf5fff" opacity=".8"/>
+        <circle cx="8"  cy="24" r="1.2" fill="#bf5fff" opacity=".8"/>
+        <circle cx="40" cy="24" r="1.2" fill="#bf5fff" opacity=".8"/>
+      </svg>
+      HourStack
+    </div>
+    <strong>Violet rings + pink sweep</strong>
+  </div>
+
+  <!-- C4: Hot orange/amber (matches navbar) -->
+  <div class="card" onmouseenter="this.style.borderColor='#ff9f43';this.style.boxShadow='0 0 20px #ff9f4333'" onmouseleave="this.style.borderColor='#1e1e2e';this.style.boxShadow='none'">
+    <label>C4 — Amber (on-brand)</label>
+    <div class="navbar-mock" style="background:#e67e22">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="c4g"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle cx="24" cy="24" r="21" stroke="rgba(255,255,255,.4)" stroke-width="1" stroke-dasharray="4 3" fill="none" filter="url(#c4g)"/>
+        <circle cx="24" cy="24" r="17" stroke="rgba(255,255,255,.7)" stroke-width="2.5" fill="rgba(255,255,255,.08)" filter="url(#c4g)"/>
+        <circle cx="24" cy="24" r="11" fill="rgba(0,0,0,.3)" stroke="rgba(255,255,255,.6)" stroke-width=".8"/>
+        <line x1="24" y1="24" x2="20" y2="16" stroke="white" stroke-width="2.2" stroke-linecap="round" filter="url(#c4g)"/>
+        <line x1="24" y1="24" x2="30" y2="20" stroke="white" stroke-width="1.6" stroke-linecap="round" filter="url(#c4g)"/>
+        <line x1="24" y1="24" x2="24" y2="33" stroke="#ffd32a" stroke-width="1.2" stroke-linecap="round" filter="url(#c4g)"/>
+        <circle cx="24" cy="24" r="1.6" fill="white" filter="url(#c4g)"/>
+        <circle cx="24" cy="8"  r="1.2" fill="white" opacity=".8"/>
+        <circle cx="24" cy="40" r="1.2" fill="white" opacity=".8"/>
+        <circle cx="8"  cy="24" r="1.2" fill="white" opacity=".8"/>
+        <circle cx="40" cy="24" r="1.2" fill="white" opacity=".8"/>
+      </svg>
+      HourStack
+    </div>
+    <strong>White glow on orange navbar</strong>
+  </div>
+
+  <!-- C5: Ice blue — thicker rings, more ticks -->
+  <div class="card" onmouseenter="this.style.borderColor='#74b9ff';this.style.boxShadow='0 0 20px #74b9ff33'" onmouseleave="this.style.borderColor='#1e1e2e';this.style.boxShadow='none'">
+    <label>C5 — Ice Blue</label>
+    <div class="navbar-mock" style="background:#060c1a;border:1px solid #74b9ff22">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="c5g"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <!-- outer glow halo -->
+        <circle cx="24" cy="24" r="22" stroke="#74b9ff" stroke-width="3" fill="none" opacity=".15" filter="url(#c5g)"/>
+        <!-- main ring -->
+        <circle cx="24" cy="24" r="18" stroke="#74b9ff" stroke-width="3" fill="rgba(116,185,255,.07)" filter="url(#c5g)"/>
+        <!-- 12 ticks -->
+        <line x1="24" y1="7"  x2="24" y2="10" stroke="#74b9ff" stroke-width="2" stroke-linecap="round" filter="url(#c5g)"/>
+        <line x1="24" y1="38" x2="24" y2="41" stroke="#74b9ff" stroke-width="2" stroke-linecap="round" filter="url(#c5g)"/>
+        <line x1="7"  y1="24" x2="10" y2="24" stroke="#74b9ff" stroke-width="2" stroke-linecap="round" filter="url(#c5g)"/>
+        <line x1="38" y1="24" x2="41" y2="24" stroke="#74b9ff" stroke-width="2" stroke-linecap="round" filter="url(#c5g)"/>
+        <!-- inner face -->
+        <circle cx="24" cy="24" r="12" fill="#060c1a" stroke="#74b9ff" stroke-width=".8" opacity=".9"/>
+        <!-- hands -->
+        <line x1="24" y1="24" x2="20" y2="16" stroke="#74b9ff" stroke-width="2.5" stroke-linecap="round" filter="url(#c5g)"/>
+        <line x1="24" y1="24" x2="30" y2="20" stroke="#74b9ff" stroke-width="2" stroke-linecap="round" filter="url(#c5g)"/>
+        <line x1="24" y1="24" x2="24" y2="33" stroke="#fd79a8" stroke-width="1.2" stroke-linecap="round" filter="url(#c5g)"/>
+        <circle cx="24" cy="24" r="2" fill="#74b9ff" filter="url(#c5g)"/>
+        <circle cx="24" cy="24" r=".8" fill="#060c1a"/>
+      </svg>
+      HourStack
+    </div>
+    <strong>Ice blue ticks + pink sweep</strong>
+  </div>
+
+  <!-- C6: Rainbow gradient neon -->
+  <div class="card" onmouseenter="this.style.borderColor='#fd79a8';this.style.boxShadow='0 0 24px #6c5ce744'" onmouseleave="this.style.borderColor='#1e1e2e';this.style.boxShadow='none'">
+    <label>C6 — Chromatic</label>
+    <div class="navbar-mock" style="background:#0a0a12;border:1px solid #ffffff11">
+      <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="c6-ring" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d4ff"/>
+            <stop offset="33%" stop-color="#bf5fff"/>
+            <stop offset="66%" stop-color="#fd79a8"/>
+            <stop offset="100%" stop-color="#00d4ff"/>
+          </linearGradient>
+          <filter id="c6g"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <circle cx="24" cy="24" r="20" stroke="url(#c6-ring)" stroke-width="3" fill="rgba(255,255,255,.04)" filter="url(#c6g)"/>
+        <circle cx="24" cy="24" r="12" fill="#0a0a12" stroke="rgba(255,255,255,.2)" stroke-width=".8"/>
+        <!-- subtle tick markers -->
+        <circle cx="24" cy="9"  r="1.1" fill="#00d4ff" opacity=".9"/>
+        <circle cx="39" cy="24" r="1.1" fill="#bf5fff" opacity=".9"/>
+        <circle cx="24" cy="39" r="1.1" fill="#fd79a8" opacity=".9"/>
+        <circle cx="9"  cy="24" r="1.1" fill="#00ff88" opacity=".9"/>
+        <!-- hands -->
+        <line x1="24" y1="24" x2="20" y2="15" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round" filter="url(#c6g)"/>
+        <line x1="24" y1="24" x2="30" y2="19" stroke="#bf5fff" stroke-width="2" stroke-linecap="round" filter="url(#c6g)"/>
+        <line x1="24" y1="24" x2="24" y2="33" stroke="#fd79a8" stroke-width="1.2" stroke-linecap="round" filter="url(#c6g)"/>
+        <circle cx="24" cy="24" r="2" fill="white" opacity=".9" filter="url(#c6g)"/>
+        <circle cx="24" cy="24" r=".8" fill="#0a0a12"/>
+      </svg>
+      HourStack
+    </div>
+    <strong>Chromatic rainbow ring</strong>
+  </div>
+
+</div>
+<p style="text-align:center;margin-top:2.5rem;color:#333;font-size:.8rem;">
+  Tell Copilot C1–C6 to apply it to the app
+</p>
+</body>
+</html>
