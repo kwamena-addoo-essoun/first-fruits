@@ -1,86 +1,85 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html {
   scroll-behavior: smooth;
-  background: #010400;
+  background: #f6f7fa;
   min-height: 100%;
 }
 
 /* ══════════════════════════════════════════
-   CSS DESIGN TOKENS — dark (default)
+   CSS DESIGN TOKENS — Soft Light (indigo)
 ══════════════════════════════════════════ */
 :root {
   /* backgrounds */
-  --bg-base:            #010400;
-  --bg-gradient:        radial-gradient(ellipse at top left, #051500 0%, #010400 55%, #000200 100%);
-  --bg-card:            #f0fef0;
-  --bg-card-hover:      #e6fbe6;
-  --bg-input:           #ffffff;
-  --bg-table-header:    #e0f5e0;
-  --bg-table-row-hover: #eaf5ea;
+  --bg-base:            #f6f7fa;
+  --bg-gradient:        #f6f7fa;
+  --bg-card:            #ffffff;
+  --bg-card-hover:      #f8fafc;
+  --bg-input:           #f8fafc;
+  --bg-table-header:    #f1f5f9;
+  --bg-table-row-hover: #f8fafc;
 
   /* borders */
-  --border:             rgba(0, 160, 50, 0.25);
-  --border-mid:         rgba(0, 160, 50, 0.38);
-  --border-focus:       rgba(0, 200, 60, 0.65);
+  --border:             #e2e8f0;
+  --border-mid:         #cbd5e0;
+  --border-focus:       #4f46e5;
 
-  /* text — dark backgrounds (nav, page headings) */
-  --text-primary:   #d8ffd8;
-  --text-secondary: rgba(216, 255, 216, 0.7);
-  --text-muted:     rgba(216, 255, 216, 0.48);
-  --text-faint:     rgba(216, 255, 216, 0.28);
+  /* text */
+  --text-primary:   #1e293b;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+  --text-faint:     #cbd5e0;
 
   /* nav */
-  --navbar-bg:     #020600;
-  --navbar-border: rgba(0, 255, 65, 0.12);
-  --navbar-shadow: 0 2px 16px rgba(0, 255, 65, 0.12);
-  --nav-link:      rgba(220, 255, 220, 0.82);
+  --navbar-bg:     #ffffff;
+  --navbar-border: #e2e8f0;
+  --navbar-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --nav-link:      #64748b;
 
-  /* accent — matrix green */
-  --accent:          #00ff41;
-  --accent-hover:    #1aff57;
-  --accent-dim:      rgba(0, 255, 65, 0.6);
-  --accent-bg:       rgba(0, 255, 65, 0.07);
-  --accent-bg-hover: rgba(0, 255, 65, 0.13);
-  --accent-text:     #010400;
+  /* accent — indigo */
+  --accent:          #4f46e5;
+  --accent-hover:    #7c3aed;
+  --accent-dim:      rgba(79, 70, 229, 0.6);
+  --accent-bg:       rgba(79, 70, 229, 0.08);
+  --accent-bg-hover: rgba(79, 70, 229, 0.14);
+  --accent-text:     #ffffff;
 
-  /* sweep — yellow */
-  --sweep:           #ffd000;
-  --sweep-dim:       rgba(255, 208, 0, 0.6);
-  --sweep-bg:        rgba(255, 208, 0, 0.07);
+  /* sweep — violet secondary */
+  --sweep:           #7c3aed;
+  --sweep-dim:       rgba(124, 58, 237, 0.6);
+  --sweep-bg:        rgba(124, 58, 237, 0.07);
 
   /* shadows */
-  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.35);
-  --shadow-lg:   0 24px 60px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-lg:   0 10px 40px rgba(0, 0, 0, 0.10);
 
-  /* spinner / glow */
-  --spinner-track: rgba(0, 255, 65, 0.1);
+  /* spinner */
+  --spinner-track: rgba(79, 70, 229, 0.12);
 
   /* highlights */
-  --bg-highlight: rgba(0, 180, 60, 0.12);
-  --text-error:   #cc0000;
+  --bg-highlight: rgba(79, 70, 229, 0.08);
+  --text-error:   #dc2626;
 }
 
-/* ── White surfaces: flip text vars to dark so all card children auto-read correctly ── */
+/* ── All surfaces use the same light text vars ── */
 .kpi-card, .project-card, .profile-panel, .dash-header-right,
 .auth-card, .card, .form-card,
 .data-table, .admin-table,
 input, select, textarea {
-  --text-primary:   #0a1a0a;
-  --text-secondary: rgba(10, 26, 10, 0.62);
-  --text-muted:     rgba(10, 26, 10, 0.44);
-  --text-faint:     rgba(10, 26, 10, 0.26);
-  --accent-bg:      rgba(0, 160, 50, 0.10);
-  --accent-bg-hover:rgba(0, 160, 50, 0.18);
-  --accent-dim:     rgba(0, 150, 45, 0.7);
-  --border:         rgba(0, 160, 50, 0.2);
-  --border-mid:     rgba(0, 160, 50, 0.32);
-  color: #0a1a0a;
+  --text-primary:   #1e293b;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+  --text-faint:     #cbd5e0;
+  --accent-bg:      rgba(79, 70, 229, 0.08);
+  --accent-bg-hover:rgba(79, 70, 229, 0.14);
+  --accent-dim:     rgba(79, 70, 229, 0.7);
+  --border:         #e2e8f0;
+  --border-mid:     #cbd5e0;
+  color: #1e293b;
 }
 
 body {
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   background: var(--bg-gradient);
-  background-attachment: fixed;
   min-height: 100vh;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;

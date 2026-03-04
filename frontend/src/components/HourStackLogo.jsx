@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
  */
 export default function HourStackLogo({ size = 38 }) {
   const [time, setTime] = useState(new Date());
-  const faceBg = '#020600';
+  const faceBg = '#ffffff';
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -57,43 +57,43 @@ export default function HourStackLogo({ size = 38 }) {
 
       {/* Outer dashed orbit ring */}
       <circle cx={cx} cy={cy} r="21"
-        stroke="#00ff41" strokeWidth="1"
+        stroke="#4f46e5" strokeWidth="1"
         strokeDasharray="4 3" fill="none"
-        opacity="0.25" filter="url(#hs-glow)" />
+        opacity="0.3" filter="url(#hs-glow)" />
 
       {/* Main glowing ring */}
       <circle cx={cx} cy={cy} r="17"
-        stroke="#00ff41" strokeWidth="2.5"
-        fill="rgba(0,255,65,0.05)"
+        stroke="#4f46e5" strokeWidth="2.5"
+        fill="rgba(79,70,229,0.06)"
         filter="url(#hs-glow)" />
 
       {/* Inner clock face */}
       <circle cx={cx} cy={cy} r="11"
-        fill={faceBg} stroke="#00ff41" strokeWidth="0.8" />
+        fill={faceBg} stroke="#4f46e5" strokeWidth="0.8" />
 
       {/* 4 cardinal hour markers */}
-      <circle cx="24" cy="8"  r="1.2" fill="#00ff41" opacity="0.85" />
-      <circle cx="24" cy="40" r="1.2" fill="#00ff41" opacity="0.85" />
-      <circle cx="8"  cy="24" r="1.2" fill="#00ff41" opacity="0.85" />
-      <circle cx="40" cy="24" r="1.2" fill="#00ff41" opacity="0.85" />
+      <circle cx="24" cy="8"  r="1.2" fill="#4f46e5" opacity="0.85" />
+      <circle cx="24" cy="40" r="1.2" fill="#4f46e5" opacity="0.85" />
+      <circle cx="8"  cy="24" r="1.2" fill="#4f46e5" opacity="0.85" />
+      <circle cx="40" cy="24" r="1.2" fill="#4f46e5" opacity="0.85" />
 
       {/* Hour hand */}
       <line x1={cx} y1={cy} x2={h.x2} y2={h.y2}
-        stroke="#00ff41" strokeWidth="2.2" strokeLinecap="round"
+        stroke="#4f46e5" strokeWidth="2.2" strokeLinecap="round"
         filter="url(#hs-glow)" />
 
       {/* Minute hand */}
       <line x1={cx} y1={cy} x2={m.x2} y2={m.y2}
-        stroke="#00ff41" strokeWidth="1.6" strokeLinecap="round"
+        stroke="#4f46e5" strokeWidth="1.6" strokeLinecap="round"
         filter="url(#hs-glow)" />
 
-      {/* Second hand — yellow sweep, ticks every second */}
+      {/* Second hand — violet sweep */}
       <line x1={cx} y1={cy} x2={s.x2} y2={s.y2}
-        stroke="#ffd000" strokeWidth="1.2" strokeLinecap="round"
+        stroke="#7c3aed" strokeWidth="1.2" strokeLinecap="round"
         filter="url(#hs-glow)" />
 
       {/* Centre dot */}
-      <circle cx={cx} cy={cy} r="1.6" fill="#00ff41" filter="url(#hs-glow)" />
+      <circle cx={cx} cy={cy} r="1.6" fill="#4f46e5" filter="url(#hs-glow)" />
       <circle cx={cx} cy={cy} r="0.7" fill={faceBg} />
     </svg>
   );
