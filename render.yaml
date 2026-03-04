@@ -1,0 +1,43 @@
+databases:
+  - name: hourstack-db
+    databaseName: hourstack
+    user: hourstack
+    plan: free
+
+services:
+  - type: web
+    name: hourstack
+    plan: free
+    runtime: python
+    buildCommand: |
+      cd frontend && npm ci && npm run build && cd ../backend && pip install -r requirements.txt && alembic upgrade heads
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hourstack-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: https://hourstack.onrender.com
+      - key: FRONTEND_URL
+        value: https://hourstack.onrender.com
+      # --- Fill these in after creating your Stripe account ---
+      - key: STRIPE_SECRET_KEY
+        value: sk_live_...
+      - key: STRIPE_PRO_PRICE_ID
+        value: price_...
+      - key: STRIPE_WEBHOOK_SECRET
+        value: whsec_...
+      # --- Fill these in with your SMTP credentials ---
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        value: your@gmail.com
+      - key: SMTP_PASSWORD
+        value: your-app-password
+      - key: FROM_EMAIL
+        value: your@gmail.com
