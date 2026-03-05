@@ -121,8 +121,8 @@ function BillingPage() {
         ) : (
           <p className="billing-notice">
             💡 <strong>Billing not configured yet.</strong> Set{' '}
-            <code>STRIPE_SECRET_KEY</code>, <code>STRIPE_PRO_PRICE_ID</code>, and{' '}
-            <code>STRIPE_WEBHOOK_SECRET</code> in your <code>.env</code> to enable payments.
+            <code>LEMONSQUEEZY_API_KEY</code>, <code>LEMONSQUEEZY_STORE_ID</code>, and{' '}
+            <code>LEMONSQUEEZY_VARIANT_ID</code> in your <code>.env</code> to enable payments.
           </p>
         )}
       </div>

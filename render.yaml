@@ -23,13 +23,15 @@ services:
         value: https://hourstack.onrender.com
       - key: FRONTEND_URL
         value: https://hourstack.onrender.com
-      # --- Fill these in after creating your Stripe account ---
-      - key: STRIPE_SECRET_KEY
-        value: sk_live_...
-      - key: STRIPE_PRO_PRICE_ID
-        value: price_...
-      - key: STRIPE_WEBHOOK_SECRET
-        value: whsec_...
+      # --- Fill these in from your Lemon Squeezy dashboard ---
+      - key: LEMONSQUEEZY_API_KEY
+        value: your_api_key_here
+      - key: LEMONSQUEEZY_STORE_ID
+        value: your_store_id_here
+      - key: LEMONSQUEEZY_VARIANT_ID
+        value: your_variant_id_here
+      - key: LEMONSQUEEZY_WEBHOOK_SECRET
+        value: your_webhook_secret_here
       # --- Fill these in with your SMTP credentials ---
       - key: SMTP_HOST
         value: smtp.gmail.com
