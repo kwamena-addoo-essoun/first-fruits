@@ -9,7 +9,6 @@ services:
     name: hourstack
     plan: free
     runtime: python
-    pythonVersion: "3.11.0"
     buildCommand: |
       cd frontend && npm ci && npm run build && cd ../backend && pip install -r requirements.txt && alembic upgrade heads
     startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
