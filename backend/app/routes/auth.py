@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
+import logging
 from app.database import get_db
 from app.models.user import User
 from app.models.password_reset import PasswordResetToken
@@ -19,6 +20,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 SECRET_KEY = os.getenv("SECRET_KEY", "")
@@ -71,8 +73,8 @@ async def register(request: Request, user: UserCreate, db: Session = Depends(get
     db.commit()
     try:
         send_verification_email(new_user.email, token)
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.warning("Failed to send verification email to %s: %s", new_user.email, exc)
 
     return new_user
 
