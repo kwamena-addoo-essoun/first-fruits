@@ -16,20 +16,10 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    with op.batch_alter_table("users") as batch_op:
-        batch_op.add_column(
-            sa.Column("plan", sa.String(), nullable=False, server_default="free")
-        )
-        batch_op.add_column(
-            sa.Column("stripe_customer_id", sa.String(), nullable=True)
-        )
-        batch_op.add_column(
-            sa.Column("stripe_subscription_id", sa.String(), nullable=True)
-        )
+    # These columns are already created in the initial_schema migration (5c59f2b3a9f3).
+    # This migration is a no-op to preserve the revision history.
+    pass
 
 
 def downgrade() -> None:
-    with op.batch_alter_table("users") as batch_op:
-        batch_op.drop_column("stripe_subscription_id")
-        batch_op.drop_column("stripe_customer_id")
-        batch_op.drop_column("plan")
+    pass
