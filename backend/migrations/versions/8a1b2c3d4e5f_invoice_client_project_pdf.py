@@ -16,22 +16,20 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    with op.batch_alter_table("invoices") as batch_op:
-        batch_op.add_column(sa.Column("client_id", sa.Integer(), nullable=True))
-        batch_op.add_column(sa.Column("project_id", sa.Integer(), nullable=True))
-        batch_op.add_column(sa.Column("client_name", sa.String(), nullable=True))
-        batch_op.add_column(sa.Column("project_name", sa.String(), nullable=True))
-        batch_op.add_column(sa.Column("notes", sa.Text(), nullable=True))
-        batch_op.create_foreign_key("fk_invoices_client_id", "clients", ["client_id"], ["id"])
-        batch_op.create_foreign_key("fk_invoices_project_id", "projects", ["project_id"], ["id"])
+    op.add_column('invoices', sa.Column('client_id', sa.Integer(), nullable=True))
+    op.add_column('invoices', sa.Column('project_id', sa.Integer(), nullable=True))
+    op.add_column('invoices', sa.Column('client_name', sa.String(), nullable=True))
+    op.add_column('invoices', sa.Column('project_name', sa.String(), nullable=True))
+    op.add_column('invoices', sa.Column('notes', sa.Text(), nullable=True))
+    op.create_foreign_key('fk_invoices_client_id', 'invoices', 'clients', ['client_id'], ['id'])
+    op.create_foreign_key('fk_invoices_project_id', 'invoices', 'projects', ['project_id'], ['id'])
 
 
 def downgrade() -> None:
-    with op.batch_alter_table("invoices") as batch_op:
-        batch_op.drop_constraint("fk_invoices_project_id", type_="foreignkey")
-        batch_op.drop_constraint("fk_invoices_client_id", type_="foreignkey")
-        batch_op.drop_column("notes")
-        batch_op.drop_column("project_name")
-        batch_op.drop_column("client_name")
-        batch_op.drop_column("project_id")
-        batch_op.drop_column("client_id")
+    op.drop_constraint('fk_invoices_project_id', 'invoices', type_='foreignkey')
+    op.drop_constraint('fk_invoices_client_id', 'invoices', type_='foreignkey')
+    op.drop_column('invoices', 'notes')
+    op.drop_column('invoices', 'project_name')
+    op.drop_column('invoices', 'client_name')
+    op.drop_column('invoices', 'project_id')
+    op.drop_column('invoices', 'client_id')

@@ -31,13 +31,11 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_email_verification_tokens_token'), 'email_verification_tokens', ['token'], unique=True)
-    with op.batch_alter_table('users') as batch_op:
-        batch_op.add_column(sa.Column('is_verified', sa.Boolean(), nullable=False, server_default=sa.false()))
+    op.add_column('users', sa.Column('is_verified', sa.Boolean(), nullable=False, server_default='false'))
 
 
 def downgrade() -> None:
     """Downgrade schema."""
-    with op.batch_alter_table('users') as batch_op:
-        batch_op.drop_column('is_verified')
+    op.drop_column('users', 'is_verified')
     op.drop_index(op.f('ix_email_verification_tokens_token'), table_name='email_verification_tokens')
     op.drop_table('email_verification_tokens')

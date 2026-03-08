@@ -16,12 +16,10 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    with op.batch_alter_table("timelogs") as batch_op:
-        batch_op.alter_column("end_time", existing_type=sa.DateTime(), nullable=True)
-        batch_op.alter_column("hours", existing_type=sa.Float(), nullable=True)
+    op.alter_column('timelogs', 'end_time', existing_type=sa.DateTime(), nullable=True)
+    op.alter_column('timelogs', 'hours', existing_type=sa.Float(), nullable=True)
 
 
 def downgrade() -> None:
-    with op.batch_alter_table("timelogs") as batch_op:
-        batch_op.alter_column("hours", existing_type=sa.Float(), nullable=False)
-        batch_op.alter_column("end_time", existing_type=sa.DateTime(), nullable=False)
+    op.alter_column('timelogs', 'hours', existing_type=sa.Float(), nullable=False)
+    op.alter_column('timelogs', 'end_time', existing_type=sa.DateTime(), nullable=False)
