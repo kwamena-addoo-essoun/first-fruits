@@ -27,6 +27,9 @@ if config.config_file_name is not None:
 
 # Override sqlalchemy.url from the environment
 _db_url = os.getenv("DATABASE_URL", "sqlite:///./time_tracker.db")
+# Render gives postgres:// but SQLAlchemy 2.x requires postgresql://
+if _db_url.startswith("postgres://"):
+    _db_url = _db_url.replace("postgres://", "postgresql://", 1)
 config.set_main_option("sqlalchemy.url", _db_url)
 
 target_metadata = Base.metadata
