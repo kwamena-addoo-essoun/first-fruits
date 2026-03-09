@@ -139,8 +139,8 @@ async def forgot_password(
 
         try:
             send_password_reset_email(user.email, token)
-        except Exception:
-            pass  # never expose mail failures to the caller
+        except Exception as exc:
+            logger.warning("Failed to send password reset email to %s: %s", user.email, exc)
 
     return {"message": "If that email is registered, a reset link has been sent."}
 
@@ -214,7 +214,7 @@ async def resend_verification(
         db.commit()
         try:
             send_verification_email(user.email, token)
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.warning("Failed to resend verification email to %s: %s", user.email, exc)
 
     return {"message": "If that email is registered and unverified, a new link has been sent."}
