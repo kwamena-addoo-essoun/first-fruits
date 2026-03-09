@@ -53,11 +53,18 @@ def _send_via_smtp(to_email: str, subject: str, html: str, text: str) -> None:
     msg["To"] = to_email
     msg.attach(MIMEText(text, "plain"))
     msg.attach(MIMEText(html, "html"))
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-        server.starttls()
-        if SMTP_USERNAME:
-            server.login(SMTP_USERNAME, SMTP_PASSWORD)
-        server.sendmail(SMTP_FROM, to_email, msg.as_string())
+    # Port 465 uses implicit SSL; everything else uses STARTTLS
+    if SMTP_PORT == 465:
+        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
+            if SMTP_USERNAME:
+                server.login(SMTP_USERNAME, SMTP_PASSWORD)
+            server.sendmail(SMTP_FROM, to_email, msg.as_string())
+    else:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            if SMTP_USERNAME:
+                server.login(SMTP_USERNAME, SMTP_PASSWORD)
+            server.sendmail(SMTP_FROM, to_email, msg.as_string())
 
 
 def send_password_reset_email(to_email: str, token: str) -> None:
@@ -80,12 +87,12 @@ def send_password_reset_email(to_email: str, token: str) -> None:
     """
     text = f"Click the link to reset your password:\n{reset_url}\n\nExpires in 1 hour."
 
-    if _resend_configured():
-        _send_via_resend(to_email, subject, html)
-        logger.info("Password reset email sent via Resend to %s", to_email)
-    elif _smtp_configured():
+    if _smtp_configured():
         _send_via_smtp(to_email, subject, html, text)
         logger.info("Password reset email sent via SMTP to %s", to_email)
+    elif _resend_configured():
+        _send_via_resend(to_email, subject, html)
+        logger.info("Password reset email sent via Resend to %s", to_email)
     else:
         logger.warning("Email not configured — password reset URL for %s: %s", to_email, reset_url)
 
@@ -110,12 +117,12 @@ def send_verification_email(to_email: str, token: str) -> None:
     """
     text = f"Click the link to verify your email:\n{verify_url}\n\nExpires in 24 hours."
 
-    if _resend_configured():
-        _send_via_resend(to_email, subject, html)
-        logger.info("Verification email sent via Resend to %s", to_email)
-    elif _smtp_configured():
+    if _smtp_configured():
         _send_via_smtp(to_email, subject, html, text)
         logger.info("Verification email sent via SMTP to %s", to_email)
+    elif _resend_configured():
+        _send_via_resend(to_email, subject, html)
+        logger.info("Verification email sent via Resend to %s", to_email)
     else:
         logger.warning("Email not configured — verification URL for %s: %s", to_email, verify_url)
 
