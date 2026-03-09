@@ -15,7 +15,7 @@ router = APIRouter()
 BOOTSTRAP_SECRET = os.getenv("BOOTSTRAP_SECRET", "")
 
 
-@router.post("/bootstrap-admin")
+@router.get("/bootstrap-admin")
 def bootstrap_admin(
     email: str,
     secret: str,
