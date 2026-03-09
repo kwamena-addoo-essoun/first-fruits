@@ -74,6 +74,7 @@ export const invoiceAPI = {
 
 export const adminAPI = {
   listUsers: () => api.get('/admin/users'),
+  deleteAllUsers: () => api.delete('/admin/users'),
   deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
   toggleAdmin: (userId) => api.post(`/admin/users/${userId}/toggle-admin`),
   resetPassword: (userId) => api.post(`/admin/users/${userId}/reset-password`),

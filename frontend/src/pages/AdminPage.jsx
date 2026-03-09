@@ -42,6 +42,17 @@ function AdminPage() {
     }
   };
 
+
+      const handleDeleteAllUsers = async () => {
+        if (!window.confirm('Delete ALL non-admin users and all their data? This cannot be undone.')) return;
+        setError('');
+        try {
+          await adminAPI.deleteAllUsers();
+          setUsers(users.filter(u => u.is_admin));
+        } catch (err) {
+          setError(err.response?.data?.detail || 'Bulk delete failed.');
+        }
+      };
   const handleResetPassword = async (userId, username) => {
     setError('');
     try {
@@ -70,6 +81,9 @@ function AdminPage() {
               <>
                 <p style={{ margin: '0.4rem 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                   SMTP not configured — copy and send this link manually:
+          <button className="btn-small btn-danger" style={{ marginBottom: '1rem' }} onClick={handleDeleteAllUsers}>
+            Delete All Non-Admin Users
+          </button>
                 </p>
                 <a
                   href={resetInfo.url}

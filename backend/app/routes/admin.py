@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.user import User
+from app.models.email_verification import EmailVerificationToken
 from app.models.password_reset import PasswordResetToken
 from app.routes.users import get_current_user
 from app.services.email_service import send_password_reset_email, FRONTEND_URL
@@ -51,11 +52,31 @@ def delete_user(
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    # Manually remove reset tokens (no ORM cascade configured there)
+    # Manually remove token rows (no ORM cascade configured there)
     db.query(PasswordResetToken).filter(PasswordResetToken.user_id == user_id).delete()
+    db.query(EmailVerificationToken).filter(EmailVerificationToken.user_id == user_id).delete()
     db.delete(user)
     db.commit()
     return {"message": f"User {user.username} deleted"}
+
+
+@router.delete("/users")
+def delete_all_users(
+    admin: User = Depends(get_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Delete all non-admin users and their related token rows."""
+    users_to_delete = db.query(User).filter(User.is_admin == False, User.id != admin.id).all()  # noqa: E712
+    deleted_count = 0
+
+    for user in users_to_delete:
+        db.query(PasswordResetToken).filter(PasswordResetToken.user_id == user.id).delete()
+        db.query(EmailVerificationToken).filter(EmailVerificationToken.user_id == user.id).delete()
+        db.delete(user)
+        deleted_count += 1
+
+    db.commit()
+    return {"message": f"Deleted {deleted_count} users", "deleted_count": deleted_count}
 
 
 @router.post("/users/{user_id}/toggle-admin")
