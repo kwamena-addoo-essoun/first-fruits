@@ -53,6 +53,16 @@ function AdminPage() {
           setError(err.response?.data?.detail || 'Bulk delete failed.');
         }
       };
+  const handleVerify = async (userId) => {
+    setError('');
+    try {
+      await adminAPI.verifyUser(userId);
+      setUsers(users.map(u => u.id === userId ? { ...u, is_verified: true } : u));
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Verify failed.');
+    }
+  };
+
   const handleResetPassword = async (userId, username) => {
     setError('');
     try {
@@ -120,6 +130,7 @@ function AdminPage() {
             <th>Email</th>
             <th>Joined</th>
             <th>Role</th>
+            <th>Verified</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -133,6 +144,12 @@ function AdminPage() {
                 <span className={`badge ${user.is_admin ? 'badge-admin' : 'badge-user'}`}>
                   {user.is_admin ? 'Admin' : 'User'}
                 </span>
+              </td>
+              <td>
+                {user.is_verified
+                  ? <span className="badge badge-admin">✓</span>
+                  : <button className="btn-small" onClick={() => handleVerify(user.id)}>Verify</button>
+                }
               </td>
               <td className="action-cell">
                 <button className="btn-small" onClick={() => handleToggleAdmin(user.id)}>

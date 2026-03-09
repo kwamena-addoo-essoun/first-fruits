@@ -34,6 +34,7 @@ def list_users(
             "company_name": u.company_name,
             "hourly_rate": u.hourly_rate,
             "is_admin": u.is_admin,
+            "is_verified": u.is_verified,
             "created_at": u.created_at.isoformat() if u.created_at else None,
         }
         for u in users
@@ -58,6 +59,21 @@ def delete_user(
     db.delete(user)
     db.commit()
     return {"message": f"User {user.username} deleted"}
+
+
+@router.patch("/users/{user_id}/verify")
+def verify_user(
+    user_id: int,
+    admin: User = Depends(get_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Manually mark a user's email as verified."""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    user.is_verified = True
+    db.commit()
+    return {"username": user.username, "is_verified": True}
 
 
 @router.delete("/users")
