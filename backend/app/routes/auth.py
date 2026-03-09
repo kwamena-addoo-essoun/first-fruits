@@ -83,7 +83,10 @@ async def register(request: Request, user: UserCreate, db: Session = Depends(get
 @limiter.limit(LOGIN_RATE_LIMIT)
 async def login(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
     """Login — rate-limited to prevent brute-force attacks"""
-    user = db.query(User).filter(User.username == user_data.username).first()
+    user = (
+        db.query(User).filter(User.username == user_data.username).first()
+        or db.query(User).filter(User.email == user_data.username).first()
+    )
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     if not user.is_verified:
