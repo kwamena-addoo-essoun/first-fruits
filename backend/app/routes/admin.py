@@ -8,31 +8,8 @@ from app.routes.users import get_current_user
 from app.services.email_service import send_password_reset_email, FRONTEND_URL
 from datetime import UTC, datetime, timedelta
 import secrets
-import os
 
 router = APIRouter()
-
-BOOTSTRAP_SECRET = os.getenv("BOOTSTRAP_SECRET", "")
-
-
-@router.get("/bootstrap-admin")
-def bootstrap_admin(
-    email: str,
-    secret: str,
-    db: Session = Depends(get_db),
-):
-    """One-time endpoint to promote a user to admin using a shared secret."""
-    expected = BOOTSTRAP_SECRET or "HS-bootstrap-2026"
-    if secret != expected:
-        raise HTTPException(status_code=403, detail="Invalid secret")
-    user = db.query(User).filter(User.email == email).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    user.is_admin = True
-    user.is_verified = True
-    db.commit()
-    return {"message": f"{user.username} is now admin and verified"}
-
 
 def get_admin_user(current_user: User = Depends(get_current_user)) -> User:
     """Dependency — 403 for non-admins."""
