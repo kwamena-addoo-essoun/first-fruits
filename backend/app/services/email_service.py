@@ -41,7 +41,9 @@ def _send_via_resend(to_email: str, subject: str, html: str) -> None:
         json={"from": RESEND_FROM, "to": [to_email], "subject": subject, "html": html},
         timeout=10,
     )
-    response.raise_for_status()
+    if response.is_error:
+        detail = response.text.strip()
+        raise RuntimeError(f"Resend API error {response.status_code}: {detail}")
 
 
 def _send_via_smtp(to_email: str, subject: str, html: str, text: str) -> None:
