@@ -85,7 +85,14 @@ async def register(request: Request, user: UserCreate, db: Session = Depends(get
     try:
         send_verification_email(new_user.email, token)
     except Exception as exc:
-        logger.warning("Failed to send verification email to %s: %s", new_user.email, exc)
+        # Email send failed (e.g. Gmail blocked by cloud host) — auto-verify so the
+        # user is not permanently locked out of their account.
+        logger.warning(
+            "Verification email failed for %s (%s) — auto-verifying to prevent lockout.",
+            new_user.email, exc,
+        )
+        new_user.is_verified = True
+        db.commit()
 
     return new_user
 
