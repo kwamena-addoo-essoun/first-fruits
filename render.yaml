@@ -32,16 +32,21 @@ services:
         value: your_variant_id_here
       - key: LEMONSQUEEZY_WEBHOOK_SECRET
         value: your_webhook_secret_here
-      # --- Fill these in with your SMTP credentials ---
+      # --- Resend (preferred for Render — Gmail SMTP is blocked by Google on cloud IPs) ---
+      - key: RESEND_API_KEY
+        value: your_resend_api_key_here
+      - key: RESEND_FROM
+        value: HourStack <onboarding@resend.dev>
+      # --- SMTP fallback (only used if RESEND_API_KEY is not set) ---
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
         value: "587"
-      - key: SMTP_USER
+      - key: SMTP_USERNAME
         value: your@gmail.com
       - key: SMTP_PASSWORD
         value: your-app-password
-      - key: FROM_EMAIL
+      - key: SMTP_FROM
         value: your@gmail.com
       # --- AI Chatbot (required for the in-app assistant) ---
       - key: OPENAI_API_KEY
