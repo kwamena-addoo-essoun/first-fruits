@@ -43,3 +43,9 @@ services:
         value: your-app-password
       - key: FROM_EMAIL
         value: your@gmail.com
+      # --- AI Chatbot (required for the in-app assistant) ---
+      - key: OPENAI_API_KEY
+        value: your_openai_api_key_here
+      # Optional: set to gpt-4o for higher quality (costs more)
+      # - key: OPENAI_CHAT_MODEL
+      #   value: gpt-4o-mini

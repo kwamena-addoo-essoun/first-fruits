@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()  # Must run before any module-level os.getenv() calls (e.g. billing.py)
+
 from pathlib import Path
 import logging
 import os
@@ -7,14 +10,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from dotenv import load_dotenv
 from app.database import engine, Base
-from app.routes import users, clients, projects, timelog, invoices, auth, admin, billing
+from app.routes import users, clients, projects, timelog, invoices, auth, admin, billing, chat
 from app.limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
-
-load_dotenv()
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -79,6 +79,7 @@ app.include_router(timelog.router, prefix="/api/timelog", tags=["timelog"])
 app.include_router(invoices.router, prefix="/api/invoices", tags=["invoices"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 app.include_router(billing.router, prefix="/api/billing", tags=["billing"])
+app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
 
 @app.get("/health")
 def health_check():

@@ -36,10 +36,11 @@ function BillingPage() {
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
+  const [polling, setPolling] = useState(false);
 
   useEffect(() => {
     if (searchParams.get('success') === '1') {
-      push('success', '🎉 Welcome to Pro! Your plan has been activated.');
+      push('success', '🎉 Payment received! Activating your Pro plan…');
     } else if (searchParams.get('canceled') === '1') {
       push('info', 'Checkout canceled — no charge was made.');
     }
@@ -47,10 +48,41 @@ function BillingPage() {
 
   useEffect(() => {
     billingAPI.getStatus()
-      .then((res) => setStatus(res.data))
+      .then((res) => {
+        setStatus(res.data);
+        // After a successful checkout redirect, poll until the webhook updates the plan
+        if (searchParams.get('success') === '1' && res.data?.plan !== 'pro') {
+          setPolling(true);
+        }
+      })
       .catch(() => push('error', 'Failed to load billing status.'))
       .finally(() => setLoading(false));
-  }, [push]);
+  }, [push]); // eslint-disable-line
+
+  // Poll billing status for up to 30s after checkout success until plan = pro
+  useEffect(() => {
+    if (!polling) return;
+    let attempts = 0;
+    const maxAttempts = 10;
+    const interval = setInterval(async () => {
+      attempts += 1;
+      try {
+        const res = await billingAPI.getStatus();
+        setStatus(res.data);
+        if (res.data?.plan === 'pro') {
+          push('success', '⭐ Pro plan activated! Enjoy unlimited everything.');
+          setPolling(false);
+          clearInterval(interval);
+        }
+      } catch { /* ignore */ }
+      if (attempts >= maxAttempts) {
+        setPolling(false);
+        clearInterval(interval);
+        push('info', 'Plan update is taking longer than expected — try refreshing in a moment.');
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [polling, push]);
 
   const handleUpgrade = async () => {
     setActionLoading(true);
@@ -81,6 +113,11 @@ function BillingPage() {
 
   return (
     <div className="billing-page">
+      {polling && (
+        <div className="billing-notice" style={{ marginBottom: '1rem', textAlign: 'center' }}>
+          ⏳ Confirming your subscription with Lemon Squeezy… this usually takes a few seconds.
+        </div>
+      )}
       <div className="billing-header">
         <h1>Billing &amp; Plan</h1>
         <p className="billing-sub">Manage your subscription and unlock the full power of HourStack.</p>

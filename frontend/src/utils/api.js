@@ -28,6 +28,10 @@ export const userAPI = {
   updateMe: (data) => api.put('/users/me', data),
 };
 
+export const chatAPI = {
+  sendMessage: (messages) => api.post('/chat/message', { messages }),
+};
+
 export const authAPI = {
   register: (email, username, password, company, rate) =>
     api.post('/auth/register', { email, username, password, company_name: company, hourly_rate: rate }),
@@ -79,6 +83,7 @@ export const adminAPI = {
   toggleAdmin: (userId) => api.post(`/admin/users/${userId}/toggle-admin`),
   resetPassword: (userId) => api.post(`/admin/users/${userId}/reset-password`),
   verifyUser: (userId) => api.patch(`/admin/users/${userId}/verify`),
+  setPlan: (userId, plan) => api.patch(`/admin/users/${userId}/plan`, null, { params: { plan } }),
 };
 
 export const clientAPI = {

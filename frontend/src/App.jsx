@@ -19,6 +19,7 @@ import BillingPage from './pages/BillingPage';
 import LandingPage from './pages/LandingPage';
 import { useAuthStore } from './store/authStore';
 import { userAPI } from './utils/api';
+import ChatBot from './components/ChatBot';
 
 function App() {
   const { isAuthenticated, isAdmin, validateStoredToken, setPlan } = useAuthStore();
@@ -41,6 +42,7 @@ function App() {
       <div className="app">
         <Navbar />
         <Toast />
+        {isAuthenticated && <ChatBot />}
         <main className="main-content">
           <Routes>
             <Route path="/" element={isAuthenticated ? <DashboardPage /> : <LandingPage />} />
