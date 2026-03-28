@@ -34,6 +34,10 @@ def _smtp_configured() -> bool:
     )
 
 
+def email_provider_configured() -> bool:
+    return _resend_configured() or _smtp_configured()
+
+
 def _send_via_resend(to_email: str, subject: str, html: str) -> None:
     response = httpx.post(
         "https://api.resend.com/emails",
@@ -87,12 +91,12 @@ def send_password_reset_email(to_email: str, token: str) -> None:
     """
     text = f"Click the link to reset your password:\n{reset_url}\n\nExpires in 1 hour."
 
-    if _smtp_configured():
-        _send_via_smtp(to_email, subject, html, text)
-        logger.info("Password reset email sent via SMTP to %s", to_email)
-    elif _resend_configured():
+    if _resend_configured():
         _send_via_resend(to_email, subject, html)
         logger.info("Password reset email sent via Resend to %s", to_email)
+    elif _smtp_configured():
+        _send_via_smtp(to_email, subject, html, text)
+        logger.info("Password reset email sent via SMTP to %s", to_email)
     else:
         logger.warning("Email not configured — password reset URL for %s: %s", to_email, reset_url)
 
@@ -117,12 +121,12 @@ def send_verification_email(to_email: str, token: str) -> None:
     """
     text = f"Click the link to verify your email:\n{verify_url}\n\nExpires in 24 hours."
 
-    if _smtp_configured():
-        _send_via_smtp(to_email, subject, html, text)
-        logger.info("Verification email sent via SMTP to %s", to_email)
-    elif _resend_configured():
+    if _resend_configured():
         _send_via_resend(to_email, subject, html)
         logger.info("Verification email sent via Resend to %s", to_email)
+    elif _smtp_configured():
+        _send_via_smtp(to_email, subject, html, text)
+        logger.info("Verification email sent via SMTP to %s", to_email)
     else:
         logger.warning("Email not configured — verification URL for %s: %s", to_email, verify_url)
 

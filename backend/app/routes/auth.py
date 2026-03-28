@@ -10,7 +10,7 @@ from app.schemas.user import (
     ForgotPasswordRequest, ResetPasswordRequest,
 )
 from app.limiter import limiter, LOGIN_RATE_LIMIT, REGISTER_RATE_LIMIT, FORGOT_PASSWORD_RATE_LIMIT, RESEND_VERIFICATION_RATE_LIMIT
-from app.services.email_service import send_password_reset_email, send_verification_email
+from app.services.email_service import send_password_reset_email, send_verification_email, email_provider_configured
 from passlib.context import CryptContext
 from datetime import UTC, datetime, timedelta
 from jose import JWTError, jwt
@@ -66,6 +66,17 @@ async def register(request: Request, user: UserCreate, db: Session = Depends(get
     db.commit()
     db.refresh(new_user)
 
+    # If no email provider is configured, auto-verify so users can still log in
+    if not email_provider_configured():
+        logger.warning(
+            "No email provider configured — auto-verifying %s. "
+            "Set RESEND_API_KEY to enable email verification.",
+            new_user.email,
+        )
+        new_user.is_verified = True
+        db.commit()
+        return new_user
+
     # Send email verification
     token = secrets.token_urlsafe(32)
     expires = datetime.now(UTC).replace(tzinfo=None) + timedelta(hours=24)
@@ -90,7 +101,13 @@ async def login(request: Request, user_data: UserLogin, db: Session = Depends(ge
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     if not user.is_verified:
-        raise HTTPException(status_code=403, detail="EMAIL_NOT_VERIFIED")
+        # If no email provider is configured, auto-verify on first login
+        if not email_provider_configured():
+            user.is_verified = True
+            db.commit()
+            logger.warning("Auto-verified %s on login (no email provider configured).", user.email)
+        else:
+            raise HTTPException(status_code=403, detail="EMAIL_NOT_VERIFIED")
 
     return {"access_token": _create_access_token(user.id, is_admin=user.is_admin), "token_type": "bearer"}
 
