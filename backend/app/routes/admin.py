@@ -34,6 +34,7 @@ def list_users(
             "hourly_rate": u.hourly_rate,
             "is_admin": u.is_admin,
             "is_verified": u.is_verified,
+            "plan": u.plan or "free",
             "created_at": u.created_at.isoformat() if u.created_at else None,
         }
         for u in users
@@ -147,3 +148,23 @@ def admin_reset_password(
         "reset_url": reset_url,
         "email_sent": email_sent,
     }
+
+
+@router.patch("/users/{user_id}/plan")
+def set_user_plan(
+    user_id: int,
+    plan: str,
+    admin: User = Depends(get_admin_user),
+    db: Session = Depends(get_db),
+):
+    """Manually override a user's plan ('free' or 'pro'). Useful for testing and manual activations."""
+    if plan not in ("free", "pro"):
+        raise HTTPException(status_code=400, detail="plan must be 'free' or 'pro'")
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    user.plan = plan
+    if plan == "free":
+        user.stripe_subscription_id = None
+    db.commit()
+    return {"username": user.username, "plan": user.plan}

@@ -63,6 +63,16 @@ function AdminPage() {
     }
   };
 
+  const handleSetPlan = async (userId, plan) => {
+    setError('');
+    try {
+      const res = await adminAPI.setPlan(userId, plan);
+      setUsers(users.map(u => u.id === userId ? { ...u, plan: res.data.plan } : u));
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Plan update failed.');
+    }
+  };
+
   const handleResetPassword = async (userId, username) => {
     setError('');
     try {
@@ -130,6 +140,7 @@ function AdminPage() {
             <th>Email</th>
             <th>Joined</th>
             <th>Role</th>
+            <th>Plan</th>
             <th>Verified</th>
             <th>Actions</th>
           </tr>
@@ -144,6 +155,16 @@ function AdminPage() {
                 <span className={`badge ${user.is_admin ? 'badge-admin' : 'badge-user'}`}>
                   {user.is_admin ? 'Admin' : 'User'}
                 </span>
+              </td>
+              <td>
+                <span className={`badge ${user.plan === 'pro' ? 'badge-admin' : 'badge-user'}`}>
+                  {user.plan === 'pro' ? '⭐ Pro' : 'Free'}
+                </span>
+                {' '}
+                {user.plan === 'pro'
+                  ? <button className="btn-small btn-outline" onClick={() => handleSetPlan(user.id, 'free')}>→ Free</button>
+                  : <button className="btn-small" onClick={() => handleSetPlan(user.id, 'pro')}>→ Pro</button>
+                }
               </td>
               <td>
                 {user.is_verified

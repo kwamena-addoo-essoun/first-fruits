@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import '../pages/AuthPages.css';
 import { authAPI } from '../utils/api';
 
@@ -7,8 +7,14 @@ function VerifyEmailPage() {
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState('loading'); // loading | success | error
   const [message, setMessage] = useState('');
+  const [countdown, setCountdown] = useState(5);
+  const navigate = useNavigate();
+  const calledRef = useRef(false);
 
   useEffect(() => {
+    if (calledRef.current) return;
+    calledRef.current = true;
+
     const token = searchParams.get('token');
     if (!token) {
       setStatus('error');
@@ -18,13 +24,24 @@ function VerifyEmailPage() {
     authAPI.verifyEmail(token)
       .then(() => {
         setStatus('success');
-        setMessage('Your email has been verified! You can now log in.');
+        setMessage('Your email has been verified! Redirecting to login…');
       })
       .catch((err) => {
         setStatus('error');
         setMessage(err.response?.data?.detail || 'Invalid or expired verification link.');
       });
   }, [searchParams]);
+
+  // Auto-redirect to /login after successful verification
+  useEffect(() => {
+    if (status !== 'success') return;
+    if (countdown <= 0) {
+      navigate('/login');
+      return;
+    }
+    const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [status, countdown, navigate]);
 
   return (
     <div className="auth-container">
@@ -34,7 +51,9 @@ function VerifyEmailPage() {
         {status === 'success' && (
           <>
             <div className="success-message">{message}</div>
-            <p className="auth-link"><Link to="/login">Go to Login</Link></p>
+            <p className="auth-link">
+              Redirecting in {countdown}s… <Link to="/login">Go now</Link>
+            </p>
           </>
         )}
         {status === 'error' && (
