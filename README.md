@@ -1,32 +1,96 @@
-# Freelancer Time Tracker & Invoice Generator
+# HourStack — Freelancer Time Tracker & Invoice Generator
 
-Track billable hours and automatically generate invoices.
+A full-stack web application for freelancers to track billable hours, manage client projects, and automatically generate professional invoices.
 
 ## Features
 
-- **Time Tracking**: Log work hours with project details
-- **Project Management**: Create and manage client projects
-- **Auto-Invoice Generation**: Generate invoices from time logs
-- **Earnings Dashboard**: Real-time earnings summary
-- **Invoice Status**: Track draft, sent, and paid invoices
-- **Client Management**: Manage multiple clients
+- **Time Tracking** — Log work sessions with start/end times and descriptions
+- **Project Management** — Create and manage multiple client projects
+- **Invoice Generation** — Auto-generate invoices from tracked hours with unique numbering
+- **Earnings Dashboard** — Real-time summary of total invoiced, paid, and pending amounts
+- **Invoice Status Tracking** — Monitor invoices from draft through to paid
+- **Client Management** — Organise and manage multiple clients
+- **Secure Authentication** — JWT-based registration and login
+- **Responsive Design** — Works on desktop and tablet
 
 ## Tech Stack
 
-- **Backend**: FastAPI, SQLAlchemy
-- **Frontend**: React, Zustand
-- **Database**: SQLite/PostgreSQL
+**Backend**
+- FastAPI (Python)
+- SQLAlchemy ORM — SQLite (development) / PostgreSQL (production)
+- JWT authentication with bcrypt password hashing
+- Pydantic v2 for data validation
+- Auto-generated Swagger & ReDoc API docs
 
-## API Endpoints
+**Frontend**
+- React 18
+- Zustand (state management)
+- Axios (HTTP client)
+- React Router v6
 
-- `POST /api/auth/register` - Register
-- `POST /api/auth/login` - Login
-- `GET /api/projects/` - Get projects
-- `POST /api/timelog/` - Log time
-- `POST /api/invoices/` - Create invoice
-- `GET /api/invoices/earnings/summary` - Get earnings
+**Infrastructure**
+- Docker & Docker Compose
+- Render deployment config included
 
-## Quick Start
+## Getting Started
 
-1. Backend: `pip install -r requirements.txt && python main.py`
-2. Frontend: `npm install && npm start`
+### Prerequisites
+- Python 3.8+
+- Node.js 14+
+- npm
+
+### Backend
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate        # macOS/Linux
+venv\Scripts\activate           # Windows
+pip install -r requirements.txt
+cp .env.example .env            # configure environment variables
+python main.py
+```
+
+API available at `http://localhost:8002`
+Interactive docs at `http://localhost:8002/docs`
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+cp .env.example .env            # set REACT_APP_API_URL
+npm start
+```
+
+App available at `http://localhost:3000`
+
+## API Overview
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Authenticate and receive JWT |
+| GET/POST | `/api/projects/` | List or create projects |
+| GET/POST | `/api/timelog/` | List or log work time |
+| GET/POST | `/api/invoices/` | List or create invoices |
+| GET | `/api/invoices/earnings/summary` | Earnings summary |
+| GET/POST | `/api/clients/` | List or create clients |
+
+All protected endpoints require: `Authorization: Bearer <token>`
+
+## Deployment
+
+The repository includes a `render.yaml` for one-click deployment to [Render](https://render.com) and a `docker-compose.yml` for containerised local or server deployment.
+
+For production, set the following environment variables:
+
+```
+SECRET_KEY=
+DATABASE_URL=postgresql://...
+FRONTEND_URL=
+```
+
+## License
+
+MIT
